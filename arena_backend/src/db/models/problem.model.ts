@@ -45,6 +45,7 @@ class Problem extends Model {
   declare countUsers: HasManyCountAssociationsMixin;
   declare hasUser: HasManyHasAssociationMixin<User, number>;
   declare getStaterCode: HasOneGetAssociationMixin<StaterCode>;
+  declare hasStaterCode: HasManyHasAssociationMixin<StaterCode, number>;
   declare createStaterCode: HasOneCreateAssociationMixin<StaterCode>;
   declare static associations: {
     problemio: Association<Problem, ProblemIO>;
@@ -214,6 +215,10 @@ StaterCode.hasOne(Problem, { onDelete: 'CASCADE', hooks: true })
 // A user can solve many problems and a problem can have multpile solved users
 User.belongsToMany(Problem, { through: UserProblems, });
 Problem.belongsToMany(User, { through: UserProblems, });
+
+User.hasMany(UserProblems, { foreignKey: 'userId'});
+
+UserProblems.belongsTo(User,  { foreignKey: 'UserId'})
 
 // A user can have multiple submissions for a problem
 Submissions.belongsTo(UserProblems, { targetKey: 'id', foreignKey: 'upid', onDelete: 'CASCADE', hooks: true });

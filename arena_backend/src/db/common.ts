@@ -5,7 +5,7 @@ import nodemailer from "nodemailer";
 import { Dialect, Sequelize } from "sequelize";
 dotenv.config();
 
-console.log(process.env.DB_NAME,  process.env.DB_HOST, process.env.DB_PASS)
+// console.log(process.env.DB_NAME,  process.env.DB_HOST, process.env.DB_PASS)
 export const sequelize = new Sequelize(
     process.env.DB_NAME || 'coding_club',
     process.env.DB_USER || 'root',
@@ -15,6 +15,14 @@ export const sequelize = new Sequelize(
         dialect: process.env.DB as Dialect || 'mysql',
     }
 );
+
+export const configs = {
+    database: process.env.DB_NAME || 'coding_club',
+    username: process.env.DB_USER || 'root',
+    password: process.env.DB_PASS || 'root',
+    host: process.env.DB_HOST || 'localhost',
+    dialect: process.env.DB as Dialect || 'mysql'
+}
 
 export const sendEmail = async (options: any) => {
 

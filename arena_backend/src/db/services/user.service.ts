@@ -69,25 +69,36 @@ export async function create(params:{username?:string, password?:string, phash?:
 }
 
 
-export async function update(id:number, params:{username?:string, password?:string, phash?:string}) {
+export async function update({ id, username, role, email }: { id: number, username: string, role: string, email: string }) {
+    
     const user = await getUser(id);
-
+    if (!user) {
+        throw 'Not valid user';
+    }
+    if (username === '' || role === '' || email === '') {
+        throw 'Empty Fields!!';
+    }
     // validate
-    const usernameChanged = params.username && user.username !== params.username;
-    if (usernameChanged && await User.findOne({ where: { username: params.username } })) {
-        throw 'Username "' + params.username + '" is already taken';
+    username = username.trim();
+    email = email.trim();
+    const usernameChanged = username && user.username !== username;
+    const emailChanged = email && user.email !== email;
+    if (usernameChanged && await User.findOne({ where: { username: username } })) {
+        throw 'Username "' + username + '" is already taken';
+    }
+    if (emailChanged && await User.findOne({ where: { email: email } })) {
+        throw 'Email "' + email + '" is already taken';
     }
 
-    // hash password if it was entered
-    if (params.password) {
-        params.phash = await bcrypt.hash(params.password, 10);
-    }
+    // // hash password if it was entered
+    // if (params.password) {
+    //     params.phash = await bcrypt.hash(params.password, 10);
+    // }
+
 
     // copy params to user and save
-    Object.assign(user, params);
+    Object.assign(user, {username, role, email});
     await user.save();
-
-    return omitHash(user.get());
 }
 
 export async function _delete(id:number) {

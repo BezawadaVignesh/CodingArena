@@ -78,6 +78,26 @@ const NavButton = styled(Button)(({ theme }) => ({
   },
 }));
 
+const NavButtonActive = styled(Button)(({ theme }) => ({
+  textTransform: 'none', // Remove uppercase transformation
+  color: theme.palette.text.primary, // Use the primary text color
+  position: 'relative',
+  paddingInline: '10px',
+  fontWeight: 'bold',
+  '&::after': {
+    content: '""',
+    position: 'absolute',
+    width: '95%',
+    height: '2px',
+    display: 'block',
+    marginTop: '20px',
+    borderRadius: '.25rem',
+    // left: '0',
+    background: theme.palette.text.primary,
+    transition: 'width 0.3s ease',
+  },
+}));
+
 const NavBox = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.mode == 'dark' ? '#333' : '#fff',
   color: theme.palette.text.primary,
@@ -90,11 +110,12 @@ const NavBox = styled(Box)(({ theme }) => ({
 }));
 
 const Navbar = () => {
-  const pages = ["Problems", "Contests"];
-  const move = ["/", "/contests"] as string[];
+  const pages = ["Problems", "Contests", "Room"];
+  const move = ["/", "/contests", "/rooms"] as string[];
   const navigate = useNavigate();
   const location = useLocation();
   const { user, logOut } = useAuth() || { user: undefined };
+  const linkIdx = move.findIndex((path) => location.pathname == path)
 
   return (
     <NavBox>
@@ -112,11 +133,11 @@ const Navbar = () => {
       </div>
       {/* <Logo /> */}
       {/* <img src={Logo} width={100}/> */}
-      {move.find((path) => location.pathname == path) ? (
+      {linkIdx != -1 ? (
         <div className={style.nav}>
         
           {pages.map((page, index) => (
-            <NavButton onClick={() => navigate(move[index])}>{page}</NavButton>
+            (index == linkIdx) ?<NavButtonActive>{page}</NavButtonActive>:<NavButton onClick={() => navigate(move[index])}>{page}</NavButton>
             // <a href={move[index]} >{page}</a>
             // <div
             //   style={{ position: "relative" }}
