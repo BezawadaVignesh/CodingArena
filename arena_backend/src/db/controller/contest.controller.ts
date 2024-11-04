@@ -19,6 +19,18 @@ router.post('/create', allowAdmin(), async (req: Request, res: Response, next: N
     }
 })
 
+router.post('/edit', allowAdmin(), async (req: Request, res: Response, next: NextFunction) => {
+    const contestId = parseInt(req.query.contestId as string);
+    try {
+        if (req.body.title === undefined || req.body.state === undefined || req.body.startTime === undefined || req.body.endTime === undefined)
+            throw 'NAPG'
+        console.log("edit contest details request")
+        res.json(await contestService.edit(contestId,req.body))
+    } catch (error) {
+        next(error)
+    }
+})
+
 router.get('/leaderbord/:id', async (req: Request, res: Response, next: NextFunction) => {
     const contestId = parseInt(req.params.id);
     try {

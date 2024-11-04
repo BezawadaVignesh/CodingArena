@@ -249,7 +249,7 @@ const EditContests = () => {
                       paddingTop: 25,
                     }}
                   >
-                    <div onClick={() => navigate(`/admin/problems/${id}`)}>
+                    <div onClick={() => navigate(`/admin/contest/${id}`)}>
                       <Typography sx={{ paddingBottom: 1 }}>
                         {index + 1}. {title} {"\n"}
                       </Typography>
@@ -264,7 +264,7 @@ const EditContests = () => {
                       <Button
                         size="small"
                         color="info"
-                        onClick={() => navigate(`/admin/problems/${id}`)}
+                        onClick={() => navigate(`/admin/contest/${id}`)}
                         variant="contained"
                       >
                         Edit

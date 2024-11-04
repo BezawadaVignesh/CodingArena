@@ -1,22 +1,23 @@
 import {
-  Model, DataTypes, HasManyAddAssociationMixin,
-  HasManyAddAssociationsMixin,
-  ForeignKey,
-  HasManyCreateAssociationMixin,
-  NonAttribute,
   Association,
-  HasManyGetAssociationsMixin,
-  HasManyRemoveAssociationMixin,
   BelongsToGetAssociationMixin,
-  HasManyHasAssociationMixin,
+  DataTypes,
+  ForeignKey,
+  HasManyAddAssociationMixin,
+  HasManyAddAssociationsMixin,
   HasManyCountAssociationsMixin,
-  HasOne,
+  HasManyCreateAssociationMixin,
+  HasManyGetAssociationsMixin,
+  HasManyHasAssociationMixin,
+  HasManyRemoveAssociationMixin,
   HasOneCreateAssociationMixin,
-  HasOneGetAssociationMixin
+  HasOneGetAssociationMixin,
+  Model,
+  NonAttribute
 } from 'sequelize';
 import { sequelize } from '../common';
-import { User } from './user.model';
 import { Contest } from './contest.model';
+import { User } from './user.model';
 
 class ProblemIO extends Model {
   declare problemId: ForeignKey<Problem['id']>;
@@ -179,7 +180,11 @@ StaterCode.init({
   languages: {
     type: new DataTypes.TEXT,
   },
-}, { sequelize })
+}, { 
+  modelName: 'StaterCode',
+  tableName: 'statercodes',
+  sequelize ,
+})
 
 UserProblems.init({
   id: {
@@ -214,4 +219,5 @@ Problem.belongsToMany(User, { through: UserProblems, });
 Submissions.belongsTo(UserProblems, { targetKey: 'id', foreignKey: 'upid', onDelete: 'CASCADE', hooks: true });
 UserProblems.hasMany(Submissions, { sourceKey: 'id', foreignKey: 'upid', onDelete: 'CASCADE', hooks: true });
 
-export { Problem, UserProblems, ProblemIO, Submissions };
+export { Problem, ProblemIO, Submissions, UserProblems };
+

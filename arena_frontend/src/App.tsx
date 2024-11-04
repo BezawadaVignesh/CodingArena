@@ -26,6 +26,7 @@ import ViewSubmissions from "./components/AdminViews/ViewSubmissions";
 import AdminRoute from "./components/Auth/AdminRouts";
 import LoadingScreen from "./components/common/LoadingScreen";
 import AdminCodeRunner from "./views/AdminCodeRunner";
+import Contest from "./views/me";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -108,6 +109,10 @@ const router = createBrowserRouter([
               {
                 path: "/admin/contests",
                 element: <EditContestsPage />,
+              },
+              {
+                path: "/admin/contest/:id",
+                element: <Contest />,
               },
               {
                 path: "/admin/users",

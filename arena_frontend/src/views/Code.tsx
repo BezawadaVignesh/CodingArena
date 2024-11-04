@@ -126,7 +126,6 @@ const Timer = ({ deadline }: { deadline: string }) => {
     </div>
   );
 };
-
 function SimplePopper() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 

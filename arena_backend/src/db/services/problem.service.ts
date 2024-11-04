@@ -88,3 +88,15 @@ export const _delete = async (id: number) => {
     await problem.destroy();
 }
 
+export const _deleteIO = async (id: number) => {
+    const p = (await ProblemIO.findByPk(id))!;
+    await p.destroy();
+}
+
+
+
+// export const getStater =async (problemId:number)=>{
+//     const stater = await StaterCode.findOne({ where: { ProblemId: problemId } })
+//     if(!stater) throw 'invalid problem id'
+//     console.log(stater.languages)
+// }

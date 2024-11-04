@@ -101,7 +101,7 @@ function ProblemHelper({
       problemId == undefined
         ? await Axios.post("/api/problem/create", {
             title,
-            contestId,
+            contestId:contestId,
             q,
             input,
             output,
@@ -120,7 +120,7 @@ function ProblemHelper({
       handleClose();
     }
   };
-
+  
   return (
     <>
       <div
