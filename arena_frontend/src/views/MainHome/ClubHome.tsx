@@ -1,15 +1,16 @@
 import { motion, useScroll } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import DotCursor from "../../components/DotCursor/DotCursor";
 import Navbar from "../../components/Navbar/Navbar";
 import { TransitionOverlay } from "../../components/transition";
-import AboutUs from "./AboutUs";
-import ClubName from "./ClubName";
-import CodeScrollAnimation from "./CodeAnimation";
+import Announcements from "./Anouncements/Announcements";
+import ClubName from "./ClubName/ClubName";
+import useDarkModeOnScroll from "./common/DarkElements";
+import DotCursor from "./DotCursor/DotCursor";
 import "./main.css";
-import Objective from "./Objective";
-import PAboutUs from "./PAboutUs";
+import Objective from "./Objective/Objective";
+import PastEvents from "./PastEvents/PastEvents";
 import "./styles.css";
+import GlowingCards from "./VisionMission/GlowingCards";
 
 const shapeTypes = ["circle", "square", "triangle"]; // Define possible shapes
 
@@ -112,61 +113,38 @@ const RandomShapes: React.FC = () => {
   );
 };
 
+
+
 const ClubHome = () => {
   const [hovered, setHovered] = useState(false);
-  const darkThemeElements = document.querySelectorAll(".__theme-change-dark");
-  const darkElement = useRef<any>(null);
-  const constraintsRef = useRef<any>(null);
-  useEffect(() => {
-    const handleScroll = () => {
-      const rect = darkElement.current?.getBoundingClientRect();
-      if(!rect) return
-      if (
-        rect.top <= window.innerHeight * 0.9 &&
-        rect.bottom >= window.innerHeight * 0.75
-      ) {
-        document.body.classList.add("__dark-mode");
-        document.body.style.transition = "1s ease-in-out";
-      } else {
-        document.body.classList.remove("__dark-mode");
-        document.body.style.transition = "0.5s ease-in-out";
-      }
-    };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+  const darkElementsRefs = useDarkModeOnScroll(2);
+  
   return (
     <TransitionOverlay>
       <>
         <Navbar />
         <DotCursor expand={hovered}/>
         <ClubName setHovered={setHovered} />
-        <div ref={darkElement}>
-        <Objective />
-        </div>
-        {/* <AboutDevs /> */}
-        <AboutUs />
-        <PAboutUs />
-        {/* <div ref={darkElement}>
+         <div ref={darkElementsRefs.current[0]}>
+          <Objective />
           <GlowingCards />
-        </div> */}
+        </div> 
+         
+        <Announcements />
+         <div ref={darkElementsRefs.current[1]}>
 
-        {/* <div>
-          <ClubHistory />
-        </div> */}
+        <PastEvents /> 
+         </div>
+
         
-        {/* <Anouncements /> */}
+        
         {/* <div ref={darkElement}> */}
 
-        <CodeScrollAnimation codeLines={sampleCode} containerStyle={{ backgroundColor: "#1e1e1e", height: "1500px" }}
-        lineStyle={{ fontSize: "1.1rem", color: "#00ff00" }} />
+        {/* <CodeScrollAnimation codeLines={sampleCode} containerStyle={{ backgroundColor: "#1e1e1e", height: "1500px" }}
+        lineStyle={{ fontSize: "1.1rem", color: "#00ff00" }} /> */}
         {/* </div> */}
-        <div style={{height: '90vh', display: 'grid', width: '100%', placeItems: 'center', fontSize: '5rem'}}>
-          The End
-        </div>
+        {/* <Footer /> */}
       </>
     </TransitionOverlay>
   );

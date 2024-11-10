@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import React from 'react';
+import RippleEffect from '../common/RippleEffect';
 import './club-name.css';
-import RippleEffect from './RippleEffect';
 
 const FadingContainer = ({ children }:{children:React.ReactNode}) => {
     return (

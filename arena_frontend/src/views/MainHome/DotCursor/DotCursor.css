@@ -1,5 +1,7 @@
-* {
+.__club-home * {
   cursor: none !important;
+  user-select: none;
+  scroll-padding-block: 5rem;
 }
 .dot-cursor {
   position: fixed;

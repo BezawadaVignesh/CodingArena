@@ -2,7 +2,7 @@ import { Variants, motion } from "framer-motion";
 import { useLayoutEffect, useState } from "react";
 import './transition.css';
 
-export const TransitionOverlay = ({ children }: { children: JSX.Element }) => {
+export const TransitionOverlay = ({ children, msg }: { children: JSX.Element, msg?: string }) => {
   const [locationName, setLocationName] = useState("");
 
   useLayoutEffect(() => {
@@ -89,7 +89,7 @@ export const TransitionOverlay = ({ children }: { children: JSX.Element }) => {
                     transitionEnd: { y: "100%", transitionDelay: "1s" },
                   }}
                   className="inline-block"
-                >{"Welcome"}
+                >{msg?msg:"Welcome"}
                   {/* {locationName.charAt(0).toUpperCase() +
                     locationName.slice(1) ===
                   "Portfolio"

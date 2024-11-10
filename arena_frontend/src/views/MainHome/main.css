@@ -34,30 +34,13 @@
     --nav-menu-bg: rgba(23 23 23 / 0.8);
   }
   
-  * {
-    /* cursor: none !important; */
-    user-select: none;
-    scroll-padding-block: 5rem;
-  }
 
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
   body, html {
     /* overflow-x: hidden; */
     scroll-behavior: smooth;
   }
   
   
-  button {
-    outline: 0;
-  }
-  
-  button:focus-visible {
-    outline: 1;
-  }
   
   @media (max-width: 1024px) {
     * {

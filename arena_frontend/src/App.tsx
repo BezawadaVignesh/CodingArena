@@ -28,14 +28,19 @@ import AdminRoute from "./components/Auth/AdminRouts";
 import LoadingScreen from "./components/common/LoadingScreen";
 import NotFound from "./components/common/NotFound";
 import AdminCodeRunner from "./views/AdminCodeRunner";
-import ClubHome from "./views/MainHome/ClubHome";
+import routes from "./views/MainHome/Router";
 import Room from "./views/Rooms/Room";
 import RoomContests from "./views/Rooms/RoomContests";
 import RoomLeaderboard from "./views/Rooms/RoomLeaderboard";
 const router = createBrowserRouter([
   {
-    path: "/tt",
-    element: <ClubHome />,
+    path: "/home",
+    element: (
+      <div className="__club-home">
+        <Outlet />
+      </div>
+    ),
+    children: routes
   },
   {
     path: "/",
