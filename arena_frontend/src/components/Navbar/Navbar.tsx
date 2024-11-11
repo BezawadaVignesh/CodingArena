@@ -15,8 +15,7 @@ import {
   ListItemText,
   Menu,
   MenuItem,
-  styled,
-  useTheme
+  styled
 } from "@mui/material";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -154,21 +153,83 @@ import CloseIcon from '@mui/icons-material/Close';
 import CodeIcon from '@mui/icons-material/Code';
 import CollectionsIcon from '@mui/icons-material/Collections';
 import ContactMailIcon from '@mui/icons-material/ContactMail';
+import GroupsIcon from '@mui/icons-material/Groups';
 import HomeIcon from '@mui/icons-material/Home';
 import InfoIcon from '@mui/icons-material/Info';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+const pageData = [
+  ["Home", <HomeIcon />, "/home"],
+  ["About Us", <InfoIcon />, "/home/aboutus"],
+  ["Announcements", <NotificationsIcon />, "/home/announcements"],
+  ["Our Team", <GroupsIcon />, "/home/our-team"],
+  ["Projects", <CodeIcon />, "/home/projects"],
+  ["Gallery", <CollectionsIcon />, "/home/gallery"],
+  ["Contact Us", <ContactMailIcon />, "/home/contact-us"]
+];
 
-const Navbar = () => {
-  const pages = ["Home", "About Us", "Anouncements", "Projects", "Gallery", "Contact Us"];
-  const pageIcons = [<HomeIcon />, <InfoIcon />, <NotificationsIcon />, <CodeIcon />, <CollectionsIcon />, <ContactMailIcon />]
-  const move = ["/home", "/aboutus", "/announcements", "/projects", "/gallery", '/contactus'] as string[];
+
+const MenuButton = ({ setOpen }: { setOpen: React.Dispatch<React.SetStateAction<boolean>>; }) => {
+  return (
+    <div className="__menu-bar" >
+      <IconButton
+        aria-label="open drawer"
+        onClick={() => { setOpen(true) }}
+      >
+        <MenuIcon sx={{ color: "var(--text-color)" }} />
+      </IconButton>
+    </div>
+  )
+}
+
+const DrawerNav = ({ open, setOpen }: { open: boolean; setOpen: React.Dispatch<React.SetStateAction<boolean>>; }) => {
+
   const navigate = useNavigate();
   const location = useLocation();
-  const theme = useTheme();
+  const linkIdx = pageData.findIndex((path) => location.pathname == path[2])
+  return (
+    <Drawer open={open} transitionDuration={1000} onClose={() => { setOpen(false); }}>
+      <motion.div
+        initial={{ x: '-110%' }}
+        animate={
+          { x: 0 }
+        }
+        transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
+      >
+        <Box sx={{ width: "100vh", }} role="presentation">
+          <List>
+            <ListItem>
+              <CloseIcon style={{ fontSize: "2em" }} onClick={() => { setOpen(false); }} />
+            </ListItem>
+            <ListItem>
+
+              <div className="__name-logo" style={{color: "black"}}>Coding Club</div>
+
+            </ListItem>
+            <Divider />
+            {pageData.map((page, index) => (
+
+              <ListItem key={page[0] as string} disablePadding sx={{ backgroundColor: linkIdx == index ? "black" : "", color: linkIdx == index ? "white" : "" }}>
+                <ListItemButton onClick={() => { setOpen(false); navigate(page[2] as string) }} >
+                  <ListItemIcon sx={{ color: linkIdx == index ? "white" : "" }}>
+                    {page[1]}
+                  </ListItemIcon>
+                  <ListItemText primary={page[0]} sx={{ fontSize: "5em" }} />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+
+        </Box>
+      </motion.div>
+    </Drawer>
+  )
+}
+
+const Navbar = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
-  const linkIdx = move.findIndex((path) => location.pathname == path)
-  // const { user, logOut } = useAuth() || { user: undefined };
-  const isActive = (path: string) => location.pathname === path;
+  const linkIdx = pageData.findIndex((path) => location.pathname == path[2])
   return (
     <div>
       <NavBox>
@@ -184,75 +245,21 @@ const Navbar = () => {
           }
           transition={{ duration: 0.5, ease: "easeOut", delay: 2.5 }}
         >
-          {/* <nav className={""} style={{}}> */}
-
-          {/* {user ? <UserDisplay user={user} logOut={logOut} /> : location.pathname == '/login' ? <></> :<Link to="/login">Login</Link>} */}
-
-          <div className="__menu-bar" >
-
-            <IconButton
-              aria-label="open drawer"
-              onClick={() => { setDrawerOpen(true) }}
-            >
-
-              <MenuIcon sx={{color: "black"}} />
-            </IconButton>
-          </div>
+          <MenuButton setOpen={setDrawerOpen} />
           <div className="__name-logo">Coding Club</div>
-
-
-          {/* <Logo /> */}
-          {/* <img src={Logo} width={100}/> */}
           {
             <div className={"__nav-buttons " + style.nav} >
-              {pages.map((page, index) => (
-                (index == linkIdx) ?<NavButtonActive>{page}</NavButtonActive>: <NavButton sx={{
-                  fontWeight: isActive(move[index]) ? "bold" : "normal", 
-                  fontSize: isActive(move[index]) ? 20: ""
-                }} onClick={() => navigate(move[index])}>{page}</NavButton>
+              {pageData.map((page, index) => (
+                (index == linkIdx) ? <NavButtonActive>{page[0]}</NavButtonActive> :
+                  <NavButton onClick={() => navigate(page[2] as string)}>{page[0]}</NavButton>
               ))}
             </div>
 
           }
         </motion.div>
-        {/* </nav> */}
       </NavBox>
 
-      <Drawer open={drawerOpen} transitionDuration={1000} onClose={() => { setDrawerOpen(false); }}>
-        <motion.div
-          initial={{ x: '-110%' }}
-          animate={
-            { x: 0 }
-          }
-          transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
-        >
-          <Box sx={{ width: "100vh", }} role="presentation">
-            <List>
-              <ListItem>
-                <CloseIcon style={{ fontSize: "2em" }} onClick={() => { setDrawerOpen(false); }} />
-              </ListItem>
-              <ListItem>
-
-                <div className="__name-logo" style={{ color: theme.palette.mode == "dark"? "white": "" }}>Coding Club</div>
-
-              </ListItem>
-              <Divider />
-              {pages.map((text, index) => (
-                
-                <ListItem key={text} disablePadding sx={{ backgroundColor: isActive(move[index]) ? theme.palette.mode == "dark" ? "white": "black": "", color: isActive(move[index]) ? theme.palette.mode == "dark" ? "black": "white": "" }}>
-                  <ListItemButton onClick={() => { setDrawerOpen(false);  navigate(move[index]) }} >
-                    <ListItemIcon sx={{color: isActive(move[index]) ? theme.palette.mode == "dark" ? "black": "white": "" }}>
-                      {pageIcons[index]}
-                    </ListItemIcon>
-                    <ListItemText primary={text} sx={{ fontSize: "5em" }} />
-                  </ListItemButton>
-                </ListItem>
-              ))}
-            </List>
-
-          </Box>
-        </motion.div>
-      </Drawer>
+      <DrawerNav open={drawerOpen} setOpen={setDrawerOpen} />
     </div>
   );
 };
