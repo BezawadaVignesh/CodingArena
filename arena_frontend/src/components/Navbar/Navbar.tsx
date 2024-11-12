@@ -225,7 +225,7 @@ const DrawerNav = ({ open, setOpen }: { open: boolean; setOpen: React.Dispatch<R
   )
 }
 
-const Navbar = () => {
+const Navbar = ({time}:{time : number}={time:2.5}) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
@@ -243,7 +243,7 @@ const Navbar = () => {
           animate={
             { y: 0 }
           }
-          transition={{ duration: 0.5, ease: "easeOut", delay: 2.5 }}
+          transition={{ duration: 0.5, ease: "easeOut", delay: time }}
         >
           <MenuButton setOpen={setDrawerOpen} />
           <div className="__name-logo">Coding Club</div>

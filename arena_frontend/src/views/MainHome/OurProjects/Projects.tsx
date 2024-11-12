@@ -1,13 +1,9 @@
-import { Card, Typography } from "@mui/material";
+import { Button, Card, Typography } from "@mui/material";
 import { useState } from "react";
+import ProjectInfo from "./ProjectInfo";
 import './styles.css';
 
 
-interface ReadMoreProps {
-  id: string
-  text: string
-  amountOfWords?: number
-}
 
 
 
@@ -35,93 +31,75 @@ const projects = [
 
 ]
 
-export const ReadMore = ({ id, text, amountOfWords = 36 }: ReadMoreProps) => {
-  const [isExpanded, setIsExpanded] = useState(false)
-  const splittedText = text.split(' ')
-  const itCanOverflow = splittedText.length > amountOfWords
-  const beginText = itCanOverflow
-    ? splittedText.slice(0, amountOfWords - 1).join(' ')
-    : text
-  const endText = splittedText.slice(amountOfWords - 1).join(' ')
-  
-  const handleKeyboard = (e: { code: string; }) => {
-    if (e.code === 'Space' || e.code === 'Enter') {
-      setIsExpanded(!isExpanded)
-    }
-  }
-
+const ProjectCard = ({ data }: { data: any; }) => {
+  const [openMore, setOpenMore] = useState<boolean>(false);
   return (
-    <p id={id}>
-      {beginText}
-      {itCanOverflow && (
-        <>
-          {!isExpanded && <span>... </span>}
-          <span 
-            className={`${!isExpanded && 'hidden'}`} 
-            aria-hidden={!isExpanded}
-          >
-            {endText}
-          </span>
-          <span
-            className='text-violet-400 ml-2'
-            role="button"
-            tabIndex={0}
-            aria-expanded={isExpanded}
-            aria-controls={id}
-            onKeyDown={handleKeyboard}
-            onClick={() => setIsExpanded(!isExpanded)}
-          >
-            {isExpanded ? 'show less' : 'show more'}
-          </span>
-        </>
-      )}
-    </p>
-  )
-}
-
-const ProjectCard = ({data}:{data:any}) => {
-  return (
-    <Card
-      variant="outlined"
-      sx={{
-        display: "flex",
-        padding: 3,
-        flexDirection: "column",
-        rowGap: 5,
-        maxWidth: 530,
-        justifyContent: "center",
-        alignItems: "center",
-        borderRadius: 5,
-        boxShadow: "rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset"
-      }}>
-      <div style={{
-        fontFamily: "Poppins",
-        fontSize: "1.5em",
-        fontWeight: 600,
-        textAlign: "center"
-      }}>
-        {data.title}
-      </div>
-      <img src={data.img} alt="ebppro" width={450} height={200}
-        style={{
-          maxWidth: "100%",
-          height: "auto",
+    <>
+      <Card
+        key={data.title}
+        onClick={()=>{setOpenMore(true)}}
+        variant="outlined"
+        sx={{
+          display: "flex",
+          padding: 3,
+          flexDirection: "column",
+          rowGap: 5,
+          maxWidth: 530,
+          justifyContent: "center",
+          alignItems: "center",
+          borderRadius: 5,
+          boxShadow: "rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset"
+        }}>
+        <div style={{
+          fontFamily: "Poppins",
+          fontSize: "1.5em",
+          fontWeight: 600,
+          textAlign: "center"
+        }}>
+          {data.title}
+        </div>
+        <img src={data.img} alt="ebppro" width={450} height={200}
+          style={{
+            maxWidth: "100%",
+            height: "auto",
+          }}
+        />
+        <Typography sx={{
+          display: '-webkit-box',
+          overflow: 'hidden',
+          WebkitBoxOrient: 'vertical',
+          WebkitLineClamp: 3,
+        }}>
+          {data.desc}
+        </Typography>
+        <Button variant="contained"
+          onClick={()=>{setOpenMore(true)}}
+          sx={{
+          // width: 120,
+          height: 40,
+          borderRadius: 5,
+          backgroundColor: "black",
+          color: "white",
+          "&:hover": {
+            backgroundColor: "grey"
+          }
         }}
-      />
-      <Typography  sx={{
-        display: '-webkit-box',
-        overflow: 'hidden',
-        WebkitBoxOrient: 'vertical',
-        WebkitLineClamp: 3,
-      }}>
-        {data.desc}
-      </Typography>
-    </Card>
+          type="submit"
+        >
+          Know More
+        </Button>
+      </Card>
+      {openMore && <div style={{ margin: "auto", width: "80%" }}>
+        <div style={{ marginLeft: "auto", marginRight: 0, width: 100 }}>
+          <ProjectInfo title={data.title} desc={data.desc} img={data.img} open={openMore} setOpen={setOpenMore} />
+        </div>
+      </div>}
+    </>
   )
 }
 
 const Projects = () => {
-
+  
   return (
     <div style={{ marginTop: "110px" }}>
       <div style={{
@@ -156,7 +134,7 @@ const Projects = () => {
 
         }}>
           {projects.map((proj, ___) => (
-            
+
             <ProjectCard data={proj} />
           ))}
         </div>
