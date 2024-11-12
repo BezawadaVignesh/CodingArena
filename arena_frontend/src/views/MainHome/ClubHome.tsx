@@ -2,7 +2,7 @@ import { motion, useScroll } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import { TransitionOverlay } from "../../components/transition";
-import Announcements from "./Anouncements/Announcements";
+// import Announcements from "./Anouncements/Announcements";
 import ClubName from "./ClubName/ClubName";
 import useDarkModeOnScroll from "./common/DarkElements";
 import DotCursor from "./DotCursor/DotCursor";
@@ -123,7 +123,7 @@ const ClubHome = () => {
   return (
     <TransitionOverlay>
       <>
-        <Navbar />
+        <Navbar time={0} />
         <DotCursor expand={hovered}/>
         <ClubName setHovered={setHovered} />
          <div ref={darkElementsRefs.current[0]}>
@@ -131,7 +131,7 @@ const ClubHome = () => {
           <GlowingCards />
         </div> 
          
-        <Announcements />
+        {/* <Announcements /> */}
          <div ref={darkElementsRefs.current[1]}>
 
         <PastEvents /> 

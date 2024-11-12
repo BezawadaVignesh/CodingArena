@@ -224,8 +224,10 @@ const DrawerNav = ({ open, setOpen }: { open: boolean; setOpen: React.Dispatch<R
     </Drawer>
   )
 }
-
-const Navbar = ({time}:{time : number}={time:2.5}) => {
+interface Time {
+  time: number;
+}
+const Navbar :React.FC<Time>= ({time=2.5}) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
