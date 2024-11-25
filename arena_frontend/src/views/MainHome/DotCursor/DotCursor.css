@@ -3,6 +3,12 @@
   user-select: none;
   scroll-padding-block: 5rem;
 }
+@media (max-width: 450px) {
+  .dot-cursor {
+    display: none;
+  }
+}
+
 .dot-cursor {
   position: fixed;
   filter: invert(0.85);

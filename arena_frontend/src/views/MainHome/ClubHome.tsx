@@ -2,10 +2,10 @@ import { motion, useScroll } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import { TransitionOverlay } from "../../components/transition";
-// import Announcements from "./Anouncements/Announcements";
 import ClubName from "./ClubName/ClubName";
 import useDarkModeOnScroll from "./common/DarkElements";
 import DotCursor from "./DotCursor/DotCursor";
+import Footer from "./Footer/Footer";
 import "./main.css";
 import Objective from "./Objective/Objective";
 import PastEvents from "./PastEvents/PastEvents";
@@ -131,7 +131,6 @@ const ClubHome = () => {
           <GlowingCards />
         </div> 
          
-        {/* <Announcements /> */}
          <div ref={darkElementsRefs.current[1]}>
 
         <PastEvents /> 
@@ -144,7 +143,7 @@ const ClubHome = () => {
         {/* <CodeScrollAnimation codeLines={sampleCode} containerStyle={{ backgroundColor: "#1e1e1e", height: "1500px" }}
         lineStyle={{ fontSize: "1.1rem", color: "#00ff00" }} /> */}
         {/* </div> */}
-        {/* <Footer /> */}
+        <Footer />
       </>
     </TransitionOverlay>
   );

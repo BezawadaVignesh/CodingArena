@@ -12,6 +12,7 @@ const movieData = [
       "A skilled thief is offered a chance to have his criminal history erased if he can implant another person's idea into a target's subconscious.",
     imageUrl:
       "codecreate.png",
+
   },
   {
     title: "Code Sprint 1.0",
@@ -22,7 +23,7 @@ const movieData = [
     description:
       "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.",
     imageUrl:
-      "code1.0.jpg",
+      "codeSprint1.0.jpeg",
   },
   {
     title: "Code Sprint 2.0",
@@ -33,7 +34,7 @@ const movieData = [
     description:
       "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.",
     imageUrl:
-      "codesprint2.0.jpg",
+      "codeSprint2.0.jpg",
   },
 ];
 
@@ -89,11 +90,13 @@ const PastEvents = () => {
           <div
             style={{ display: "grid", placeContent: "center", height: "100%" }}
           >
-            <div>
+            <div
+              style={{ width: "90%", maxHeight: "80%", borderRadius: "8px" }}
+            >
 
               <motion.img
+              style={{width: '100%', height: '100%'}}
                 src={leftImage}
-                style={{ width: "100%", borderRadius: "8px" }}
                 key={leftImage} // Key update triggers re-animation
                 initial={{ scale: 0.5 }}
                 animate={{ scale: 1 }}
