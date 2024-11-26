@@ -6,6 +6,7 @@ import Announcements from "./Anouncements/Anouncements";
 import ClubHome from "./ClubHome";
 import ClubName from "./ClubName/ClubName";
 import ContactUs from "./ContactUs/ContactUs";
+import ContestAnounce from "./ContestAnnouncement/contestAnounce";
 import DotCursor from "./DotCursor/DotCursor";
 import EventPage from "./Events/eventDesc";
 import EventsPage from "./Events/events";
@@ -13,11 +14,18 @@ import Gallery from "./Gallery/gallery";
 import GalleryList from "./Gallery/galleryList";
 import Projects from "./OurProjects/Projects";
 import OurTeam from "./OurTeam/OurTeam";
+import Countdown from "./common/Countdown/Countdown";
 
 const routes: RouteObject[] = [
   {
     index: true,
     element: <ClubHome />,
+  },
+  {
+    path: "timer",
+    element: (
+      <Countdown/>
+    ),
   },
   {
     path: "about-dev",
@@ -52,6 +60,18 @@ const routes: RouteObject[] = [
           <DotCursor />
           <ClubName setHovered={() => {}} />
           <OurTeam />
+        </div>
+      </TransitionOverlay>
+    ),
+  },
+  {
+    path: "contest",
+    element: (
+      <TransitionOverlay key={"contest"} msg="contest">
+        <div>
+          <Navbar time={2.5} />
+          <DotCursor />
+          <ContestAnounce />
         </div>
       </TransitionOverlay>
     ),

@@ -184,12 +184,23 @@
   margin-bottom: 1rem;
   text-transform: capitalize;
 }
+.category-badge.leetcode {
+  background: rgba(59, 130, 246, 0.1);
+  color: #2563eb;
+}
+.category-badge.codechef {
+  background: rgba(59, 130, 246, 0.1);
+  color: #2563eb;
+}
 
 .category-badge.event {
   background: rgba(59, 130, 246, 0.1);
   color: #2563eb;
 }
-
+.category-badge.codeforces {
+  background: rgba(245, 158, 11, 0.1);
+  color: #d97706;
+}
 .category-badge.news {
   background: rgba(16, 185, 129, 0.1);
   color: #059669;

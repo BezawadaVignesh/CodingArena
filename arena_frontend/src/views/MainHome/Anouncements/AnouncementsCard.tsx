@@ -13,10 +13,10 @@ interface AnnouncementProps {
   title: string;
   date: string;
   time: string;
-  description: string;
+  subTitle: string;
   isNew?: boolean;
-  category: 'event' | 'news' | 'update';
-  link: string;
+  category:string;// 'event' | 'news' | 'update' |'coding contest';
+  link?: string;
   poster?: string;
   venue?: string;
   capacity?: string;
@@ -30,11 +30,11 @@ const AnnouncementCard: React.FC<AnnouncementProps> = ({
   title,
   date,
   time,
-  description,
+  subTitle,
   isNew = false,
   category,
   link,
-  poster = 'https://images.unsplash.com/photo-1496449903678-68ddcb189a24?q=80&w=2070',
+  poster = (category==='leetcode')?'/leetcode.jpg':((category==='codechef')?'/codechef.jpg':((category==='codeforces')?'/codeforces.jpg':link)),
   venue,
   capacity,
   registrationSteps = [],
@@ -58,7 +58,7 @@ const AnnouncementCard: React.FC<AnnouncementProps> = ({
         <div className="card-main-content">
           <div className="text-content">
             <h3 className="announcement-title">{title}</h3>
-            <p className="announcement-description">{description}</p>
+            <p className="announcement-subTitle">{subTitle}</p>
             <div className="announcement-meta">
               <div className="meta-item">
                 <CalendarMonthIcon />
@@ -127,6 +127,7 @@ const AnnouncementCard: React.FC<AnnouncementProps> = ({
             <img 
               src={poster} 
               alt={title} 
+              style={{objectFit:'fill', width:'100%',height:'100%'}}
               className="announcement-poster"
               loading="lazy"
             />
