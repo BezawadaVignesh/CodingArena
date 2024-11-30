@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import Confetti from "react-confetti";
 import ConfettiExplosion from 'react-confetti-explosion';
 import { Navigate, useNavigate } from "react-router-dom";
+import DotCursor from "../../DotCursor/DotCursor";
 import './Countdown.css'; // For custom styling
 
 function Countdown() {
@@ -54,6 +55,7 @@ function Countdown() {
 
   const triggerConfetti = () => {
     confetti({
+      ticks: 500,
       particleCount: 200,
       spread: 100,
       origin: { y: 0.6 },
@@ -62,6 +64,7 @@ function Countdown() {
 
   return (
     <div className="countdown">
+      <DotCursor />
       <div className="timer ">
         <div className="timer-icon grow">
           <i className={`fa fa-clock ${isFinished ? 'stop' : ''}`}></i>

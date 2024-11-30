@@ -2,7 +2,8 @@ import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import { Box, CircularProgress } from "@mui/material";
 import Axios from "axios";
 import dayjs from "dayjs";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
+import { AlertContext } from "../../../components/common/AlertProvider";
 import { StyledTab, StyledTabs } from "../../AdminCodeRunner";
 import AnnouncementCard from "./AnouncementsCard";
 
@@ -14,7 +15,7 @@ interface Contest {
   subTitle: string;
   date: string;
   duration: string;
-  location?:string;
+  location?: string;
 }
 
 const Announcements = () => {
@@ -108,7 +109,7 @@ const Announcements = () => {
         "Top projects will receive funding opportunities and direct internship offers from our industry partners. Each team will get 15 minutes for presentation and 5 minutes for Q&A.",
     },
   ] as const;
-  const presentEvents:Contest[] = [
+  const presentEvents: Contest[] = [
     {
       id: 1,
       link: "/codeSprint1.0.jpeg",
@@ -116,8 +117,8 @@ const Announcements = () => {
       subTitle: "A great event to attend",
       date: "June 19, 2024",
       location: "Geethanjali College of Eng and Tech ,cheeryal",
-      duration:"1hr",
-      platform:"event"
+      duration: "1hr",
+      platform: "event",
     },
     {
       id: 2,
@@ -125,9 +126,9 @@ const Announcements = () => {
       title: "codeSprint2.0",
       subTitle: "Learn and explore",
       date: " Aug 1 2023",
-      duration:"1hr",
+      duration: "1hr",
       location: "Geethanjali College of Eng and Tech ,cheeryal",
-      platform:"event"
+      platform: "event",
     },
   ];
   const data: Contest[] = [
@@ -170,18 +171,30 @@ const Announcements = () => {
   ];
   const [tab, setTab] = useState(1);
   const [contests, setContests] = useState<Contest[]>(data);
-  const [loading,setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
+  const alert = useContext(AlertContext);
+  const externalContests = useRef<Contest[]>();
   useEffect(() => {
     (async () => {
       setLoading(true);
-      if(tab==2){
-        const { data } = await Axios.get(`/api/cp/contests`, {
-          withCredentials: true,
-        });
-        console.log(data);
-        setContests(data);
-        setLoading(false);
-      }else{
+      if (tab == 2) {
+        if (externalContests.current) {
+          setContests(externalContests.current);
+          setLoading(false);
+          return;
+        }
+        try {
+          const { data } = await Axios.get(`/api/cp/contests`, {
+            withCredentials: true,
+          });
+          externalContests.current = data;
+        } catch (e) {
+          alert?.showAlert("Couldn't load data please try later", "error");
+        } finally {
+          setContests(externalContests.current || []);
+          setLoading(false);
+        }
+      } else {
         setContests(presentEvents);
         setLoading(false);
       }
@@ -197,7 +210,7 @@ const Announcements = () => {
           sx={{
             // width: "80%",
             borderBottom: 1,
-            
+
             margin: "0 auto",
             borderColor: "divider",
             // marginLeft:"120px"
@@ -247,39 +260,42 @@ const Announcements = () => {
       </div>
 
       <div className="announcements-grid">
-        {loading && <Box sx={{ width: "100%", height: "10vh", position: "relative" }}>
-          <div
-            style={{
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              position: "absolute",
-            }}
-          >
-            <CircularProgress />
-          </div>
-        </Box>}
-        {!loading &&contests.map((contest, index) => {
-          const { date, link, ...data } = contest;
-          return (
-            <AnnouncementCard
-              time={dayjs(date).format("hh:MM A")}
-              date={dayjs(date).format("DD/MM/YYYY")}
-              category={contest.platform}
-              key={index}
-              link={
-                contest.platform == "leetcode"
-                  ? "https://leetcode.com/contest/" + contest.link
-                  : contest.platform == "codechef"
-                  ? "https://www.codechef.com/" + contest.link
-                  : contest.platform == "codeforces"
-                  ? contest.link
-                  : contest.link
-              }
-              {...data}
-            />
-          );
-        })}
+        {loading && (
+          <Box sx={{ width: "100%", height: "10vh", position: "relative" }}>
+            <div
+              style={{
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                position: "absolute",
+              }}
+            >
+              <CircularProgress />
+            </div>
+          </Box>
+        )}
+        {!loading &&
+          contests.map((contest, index) => {
+            const { date, link, ...data } = contest;
+            return (
+              <AnnouncementCard
+                time={dayjs(date).format("hh:MM A")}
+                date={dayjs(date).format("DD/MM/YYYY")}
+                category={contest.platform}
+                key={index}
+                link={
+                  contest.platform == "leetcode"
+                    ? "https://leetcode.com/contest/" + contest.link
+                    : contest.platform == "codechef"
+                    ? "https://www.codechef.com/" + contest.link
+                    : contest.platform == "codeforces"
+                    ? contest.link
+                    : contest.link
+                }
+                {...data}
+              />
+            );
+          })}
       </div>
     </div>
   );
