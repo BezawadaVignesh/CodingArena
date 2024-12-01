@@ -65,7 +65,7 @@
   }
 }
 
-@keyframes grow {
+@keyframes fadein {
   0% {
     opacity: 0;
     /* filter:blur('8px'); */
@@ -79,8 +79,8 @@
 
 
 
-.animating-grow {
-  animation: grow 1.5s ease 2s forwards;
+.animating-fadein {
+  animation: fadein 1.5s ease 2s forwards;
   /* animation-delay: 1s; */
   opacity: 0;
 }

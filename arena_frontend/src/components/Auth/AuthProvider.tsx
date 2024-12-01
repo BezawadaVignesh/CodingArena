@@ -62,8 +62,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
             throw new Error("Token validation failed");
           }
         } catch (e) {
-          alert?.showAlert("Error validating the token", "error");
-          console.log(e);
+          alert?.showAlert("Token is invalid please relogin", "error");
           logOut();
         } finally {
           setLoading(false);
@@ -71,7 +70,6 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
       } else {
         delete Axios.defaults.headers.common["Authorization"];
         localStorage.removeItem("token");
-        alert?.showAlert("Please relogin as the token is corrupted", "error");
         setLoading(false);
       }
     };

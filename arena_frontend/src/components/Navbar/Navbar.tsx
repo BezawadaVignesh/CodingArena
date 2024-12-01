@@ -159,7 +159,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 const pageData = [
   ["Home", <HomeIcon />, "/home"],
-  ["About Us", <InfoIcon />, "/home/aboutus"],
+  ["Events", <InfoIcon />, "/home/Events"],
   ["Announcements", <NotificationsIcon />, "/home/announcements"],
   ["Our Team", <GroupsIcon />, "/home/our-team"],
   ["Projects", <CodeIcon />, "/home/projects"],

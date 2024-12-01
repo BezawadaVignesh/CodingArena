@@ -135,7 +135,7 @@ const ClubName = ({ setHovered }: { setHovered: React.Dispatch<React.SetStateAct
               transform: "translateY(-10px)",
               textShadow: "rgb(50 50 50 / 20%) 13px 6px 15px",
             }}
-            className="__name-bg animating-grow"
+            className="__name-bg animating-fadein"
           >
             Hey!
           </div>
@@ -167,7 +167,7 @@ const ClubName = ({ setHovered }: { setHovered: React.Dispatch<React.SetStateAct
               classNames="__name-span __stroke-only"
             />
 
-            <div className='__collage-font animating-grow' style={{ position: 'relative', fontSize: '1.2rem', textAlign: 'center', width: '90vw', color: 'rgba(var(--text-color-rgb), 60%)', fontWeight: 600, animationDelay: '2s', marginBottom: '5px', height: 'max-content', letterSpacing: '0.07rem' }}>
+            <div className='__collage-font animating-fadein' style={{ position: 'relative', fontSize: '1.2rem', textAlign: 'center', width: '90vw', color: 'rgba(var(--text-color-rgb), 60%)', fontWeight: 600, animationDelay: '2s', marginBottom: '5px', height: 'max-content', letterSpacing: '0.07rem' }}>
 
               {"Geethanjali Collage Of Engineering And Technology"}
             </div>

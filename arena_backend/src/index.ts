@@ -7,6 +7,7 @@ import bodyParser from "body-parser";
 import { authorize } from "./_middleware/authorize";
 import { errorHandler } from "./_middleware/error-handler";
 import contestRouter from "./db/controller/contest.controller";
+import cpRouter from "./db/controller/cp.controller";
 import problemRouter from "./db/controller/problem.controller";
 import roomRouter from "./db/controller/room.controller";
 import userRouter from "./db/controller/user.controller";
@@ -25,6 +26,7 @@ app.use('/users', userRouter)
 
 // app.use(authorize());
 app.use(express.static(path.join(__dirname, '/../data')))
+app.use('/cp', cpRouter)
 
 app.use('/problem', authorize(), problemRouter)
 app.use('/contest', authorize(), contestRouter)

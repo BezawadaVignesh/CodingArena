@@ -2,9 +2,11 @@ import { RouteObject } from "react-router-dom";
 import Navbar from "../../components/Navbar/Navbar";
 import { TransitionOverlay } from "../../components/transition";
 import AboutDevs from "./AboutDev/AboutDevs";
+import Announcements from "./Anouncements/Anouncements";
 import ClubHome from "./ClubHome";
 import ClubName from "./ClubName/ClubName";
 import ContactUs from "./ContactUs/ContactUs";
+import ContestAnounce from "./ContestAnnouncement/contestAnounce";
 import DotCursor from "./DotCursor/DotCursor";
 import EventPage from "./Events/eventDesc";
 import EventsPage from "./Events/events";
@@ -12,6 +14,7 @@ import Gallery from "./Gallery/gallery";
 import GalleryList from "./Gallery/galleryList";
 import Projects from "./OurProjects/Projects";
 import OurTeam from "./OurTeam/OurTeam";
+import Countdown from "./common/Countdown/Countdown";
 
 const routes: RouteObject[] = [
   {
@@ -19,12 +22,31 @@ const routes: RouteObject[] = [
     element: <ClubHome />,
   },
   {
+    path: "timer",
+    element: (
+      <Countdown/>
+    ),
+  },
+  {
     path: "about-dev",
     element: (
       <TransitionOverlay key={"About devs"} msg="About Devs">
         <div>
+          <Navbar time={1} />
           <DotCursor />
           <AboutDevs />
+        </div>
+      </TransitionOverlay>
+    ),
+  },
+  {
+    path: "announcements",
+    element: (
+      <TransitionOverlay msg="Announcements">
+        <div style={{ marginTop: '50px'}}>
+          <Navbar time={1} />
+          <DotCursor />
+          <Announcements />
         </div>
       </TransitionOverlay>
     ),
@@ -38,6 +60,18 @@ const routes: RouteObject[] = [
           <DotCursor />
           <ClubName setHovered={() => {}} />
           <OurTeam />
+        </div>
+      </TransitionOverlay>
+    ),
+  },
+  {
+    path: "contest",
+    element: (
+      <TransitionOverlay key={"contest"} msg="contest">
+        <div>
+          <Navbar time={2.5} />
+          <DotCursor />
+          <ContestAnounce />
         </div>
       </TransitionOverlay>
     ),
@@ -95,6 +129,7 @@ const routes: RouteObject[] = [
     element: (
       <TransitionOverlay msg="Events">
         <div>
+        <DotCursor />
           <EventsPage />
         </div>
       </TransitionOverlay>
@@ -105,6 +140,7 @@ const routes: RouteObject[] = [
     element: (
       <TransitionOverlay msg="Event">
         <div>
+        <DotCursor />
           <EventPage />
         </div>
       </TransitionOverlay>
