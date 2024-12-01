@@ -153,14 +153,16 @@ import CloseIcon from '@mui/icons-material/Close';
 import CodeIcon from '@mui/icons-material/Code';
 import CollectionsIcon from '@mui/icons-material/Collections';
 import ContactMailIcon from '@mui/icons-material/ContactMail';
+import EventIcon from '@mui/icons-material/Event';
 import GroupsIcon from '@mui/icons-material/Groups';
 import HomeIcon from '@mui/icons-material/Home';
-import InfoIcon from '@mui/icons-material/Info';
+import LeaderboardIcon from '@mui/icons-material/Leaderboard';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 const pageData = [
   ["Home", <HomeIcon />, "/home"],
-  ["Events", <InfoIcon />, "/home/Events"],
+  ["Events", <EventIcon />, "/home/Events"],
   ["Announcements", <NotificationsIcon />, "/home/announcements"],
+  ["Standings", <LeaderboardIcon />, "/home/standings"],
   ["Our Team", <GroupsIcon />, "/home/our-team"],
   ["Projects", <CodeIcon />, "/home/projects"],
   ["Gallery", <CollectionsIcon />, "/home/gallery"],

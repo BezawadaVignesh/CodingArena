@@ -32,7 +32,7 @@ const ContactForm = () => {
     if (msg[0] === "") {
       setMsg(["", true])
     }
-    if (name[0] !== "" || email[0] !== "" || msg[0] !== "") {
+    if (name[0] !== "" && email[0] !== "" && msg[0] !== "") {
       alert?.showAlert('Thank you', 'success');
     }
   }
@@ -125,8 +125,8 @@ const Contact = ({ children, linkto }: { linkto: string; children: JSX.Element }
 const MyTextField = styled(TextField)(({ }) => ({
   "& .MuiOutlinedInput-root": {
       "&.Mui-focused fieldset": {
-        borderColor: "black",  // Change border color on focus
-        borderWidth: "2px",    // Optionally, make it bolder
+        borderColor: "black", 
+        borderWidth: "2px",    
       },
     },
 }));

@@ -10,6 +10,7 @@ import contestRouter from "./db/controller/contest.controller";
 import cpRouter from "./db/controller/cp.controller";
 import problemRouter from "./db/controller/problem.controller";
 import roomRouter from "./db/controller/room.controller";
+import standingsRouter from "./db/controller/standings.controller";
 import userRouter from "./db/controller/user.controller";
 
 dotenv.config();
@@ -23,6 +24,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 app.use('/users', userRouter)
+app.use('/ss', standingsRouter);
 
 // app.use(authorize());
 app.use(express.static(path.join(__dirname, '/../data')))
