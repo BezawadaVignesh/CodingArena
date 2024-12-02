@@ -48,7 +48,7 @@ const data: Contest[] = [
 ];
 
 const Announcement: React.FC<Contest> = ({
-  id,
+  id: _id,
   platform,
   title,
   subTitle,

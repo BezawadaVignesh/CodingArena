@@ -11,8 +11,8 @@
 
 .dot-cursor {
   position: fixed;
-  filter: invert(0.85);
-  mix-blend-mode: difference;
+  /* filter: invert(0.85);
+  mix-blend-mode: difference; */
   width: 15px;
   
   height: 15px;

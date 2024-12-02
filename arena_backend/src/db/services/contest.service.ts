@@ -1,4 +1,4 @@
-import { Contest } from "../models/contest.model"
+import { Contest } from "../models/contest.model";
 
 export const create = async (params:{state:string, startTime: Date, endTime: Date}) => {
     if(params.endTime < params.startTime) throw 'end time should be greater than start time';
@@ -17,5 +17,5 @@ export async function getContest(id:number) {
 }
 
 export const getAll = async () => {
-    return await Contest.findAll({attributes:['id', 'title']});
+    return await Contest.findAll({attributes:['id', 'title', 'state', 'startTime', 'endTime']});
 }

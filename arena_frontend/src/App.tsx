@@ -34,6 +34,12 @@ import RoomContests from "./views/Rooms/RoomContests";
 import RoomLeaderboard from "./views/Rooms/RoomLeaderboard";
 const router = createBrowserRouter([
   {
+    path: '/logo',
+    element: <div style={{backgroundColor: 'black'}}>
+      <img src="/clogo.png" />
+    </div>
+  },
+  {
     path: "/home",
     element: (
       <div className="__club-home">

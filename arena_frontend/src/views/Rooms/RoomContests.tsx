@@ -43,6 +43,15 @@ const RoomContests = () => {
   useEffect(() => {
     getRoomDetails();
   }, []);
+  async function handleCloseRoom() {
+    try {
+      const { data: dd } = await Axios.post(`/api/room/closeroom`, {roomId:data.id});
+      alert?.showAlert(dd.message, "success")
+    } catch (e: any) {
+      alert?.showAlert(e.response.data.message, "error");
+    }
+  }
+
   return (
     <>
       <Navbar />
@@ -159,7 +168,7 @@ const RoomContests = () => {
             {/* </div> */}
           </>
         )}
-        <div style={{margin: 'auto', width: '200px', justifyContent: 'space-evenly', display: 'flex'}}>
+        <div style={{margin: 'auto', width: '400px', justifyContent: 'space-evenly', display: 'flex'}}>
         <Button
               sx={{
                 paddingInline: "20px",
@@ -167,14 +176,30 @@ const RoomContests = () => {
                 marginBlock: "10px",
               }}
               variant="outlined"
-              onClick={() => navigate("/rooms/leaderboard/1")}
+              onClick={() => {if(data && data.id)navigate(`/rooms/leaderboard/${data.id}`); else alert?.showAlert("Couldn't navigate to leaderboard", "error")}}
             >
-              {" "}
               <b style={{paddingInline: '10px'}}>
                 View result
                 </b>
                 <LaunchOutlined />
             </Button>
+             { false &&  userObj?.role == 'admin' && <Button
+              sx={{
+                paddingInline: "20px",
+                paddingBlock: "10px",
+                marginBlock: "10px",
+              }}
+              color="error"
+              variant="contained"
+              onClick={handleCloseRoom}
+              
+            >
+              {" "}
+              <b style={{paddingInline: '10px'}}>
+                Close Room
+                </b>
+                
+            </Button> }
         </div>
         {/* <pre>{JSON.stringify(data, null, 5)}</pre> */}
       </div>

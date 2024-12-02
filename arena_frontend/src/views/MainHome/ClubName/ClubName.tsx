@@ -3,63 +3,6 @@ import React from 'react';
 import RippleEffect from '../common/RippleEffect';
 import './club-name.css';
 
-const FadingContainer = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <motion.div
-      style={{
-        position: 'relative',
-        width: '100%',
-        padding: '20px',
-        backgroundColor: 'lightblue',
-        overflow: 'hidden',
-      }}
-    >
-      {children}
-      {/* Animated opacity overlay */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-
-        transition={{ duration: 1.5 }}
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          background: 'linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1))',
-          pointerEvents: 'none',
-        }}
-      />
-    </motion.div>
-  );
-};
-
-
-const UncoverText = ({ text, duration = 0.8 }: { text: string, duration?: number }) => {
-  return (
-    <div style={{ display: 'inline-block', overflow: 'hidden', whiteSpace: 'nowrap', width: '100%', height: '100%' }}>
-      {text.split("").map((letter: string, index: number) => (
-        <motion.span
-          key={index}
-          initial={{ opacity: 0 }} // Start from the left
-          animate={{ opacity: 1 }} // Animate to 0 (fully visible)
-          transition={{
-            duration: duration,
-            delay: index * 0.5, // Stagger each letter slightly
-            ease: 'easeOut'
-          }}
-          style={{
-            display: 'inline-block',
-            whiteSpace: 'nowrap',
-          }}
-        >
-          {letter}
-        </motion.span>
-      ))}
-    </div>
-  );
-};
 
 const MoveUpAnimatedText = ({
   text,

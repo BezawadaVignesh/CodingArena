@@ -29,9 +29,9 @@ const CTimelineItem: React.FC<TimelineItemProps> = ({ event, align }) => {
     <motion.div
       ref={ref}
       // initial={{ opacity: 0, x: align === "left" ? "-80%" : "80%" }}
-      initial={{scale:0, opacity: 0}}
+      initial={{ scale: 0, opacity: 0 }}
       animate={
-        isInView? {scale: 1, opacity: 1}:{scale: 0, opacity: 0}
+        isInView ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }
         // isInView
         //   ? { opacity: 1, x: 0 }
         //   : { opacity: 0, x: align === "left" ? "-80%" : "80%" }
@@ -43,17 +43,25 @@ const CTimelineItem: React.FC<TimelineItemProps> = ({ event, align }) => {
         damping: 20,
       }}
     >
-      <div style={{color: 'var(--text-color)',minWidth: '200px',width: '50%',  backgroundColor: '#ffff', display: 'grid', placeItems: 'center', borderRadius: '1rem', float: align === "left"?'right':'left', height: '100px'}}>
+      <div
+        style={{
+          color: "var(--text-color)",
+          minWidth: "200px",
+          width: "50%",
+          backgroundColor: "#ffff",
+          display: "grid",
+          placeItems: "center",
+          borderRadius: "1rem",
+          float: align === "left" ? "right" : "left",
+          height: "100px",
+        }}
+      >
         <h3>{event.title}</h3>
         <p>{event.description}</p>
       </div>
     </motion.div>
   );
 };
-
-interface TimelineProps {
-  events: Event[];
-}
 
 // const cTimeline: React.FC<TimelineProps> = ({ events }) => {
 //   return (
@@ -71,14 +79,28 @@ interface TimelineProps {
 
 export default function ClubHistory() {
   return (
-    <div style={{ backgroundColor: "var(--bg-color)", color: "var(--text-color)", width: 'max(max-content, 100vw)', }}>
-      <div style={{fontSize: '2.5rem', fontWeight: 700, width: 'max-content', margin: 'auto', paddingBlock: '50px'}}>
+    <div
+      style={{
+        backgroundColor: "var(--bg-color)",
+        color: "var(--text-color)",
+        width: "max(max-content, 100vw)",
+      }}
+    >
+      <div
+        style={{
+          fontSize: "2.5rem",
+          fontWeight: 700,
+          width: "max-content",
+          margin: "auto",
+          paddingBlock: "50px",
+        }}
+      >
         Mile Stones
       </div>
       <Timeline position="alternate">
         <TimelineItem>
           <TimelineOppositeContent
-            sx={{ m: "auto 0", color: 'rgba(var(--text-color-rgb), 60%)', }}
+            sx={{ m: "auto 0", color: "rgba(var(--text-color-rgb), 60%)" }}
             align="right"
             variant="body2"
             color="text.secondary"
@@ -91,7 +113,7 @@ export default function ClubHistory() {
             <TimelineConnector />
           </TimelineSeparator>
           <TimelineContent sx={{ py: "120px", px: 2 }}>
-          <CTimelineItem
+            <CTimelineItem
               event={{ title: "Club Launch", description: "Hello" }}
               align={"right"}
             />
@@ -99,7 +121,7 @@ export default function ClubHistory() {
         </TimelineItem>
         <TimelineItem>
           <TimelineOppositeContent
-            sx={{ m: "auto 0", color: 'rgba(var(--text-color-rgb), 60%)', }}
+            sx={{ m: "auto 0", color: "rgba(var(--text-color-rgb), 60%)" }}
             variant="body2"
             color="text.secondary"
           >
@@ -107,7 +129,7 @@ export default function ClubHistory() {
           </TimelineOppositeContent>
           <TimelineSeparator>
             <TimelineConnector />
-            <TimelineDot >{/* <LaptopMacIcon /> */}</TimelineDot>
+            <TimelineDot>{/* <LaptopMacIcon /> */}</TimelineDot>
             <TimelineConnector />
           </TimelineSeparator>
           <TimelineContent sx={{ py: "120px", px: 2 }}>
@@ -118,8 +140,8 @@ export default function ClubHistory() {
           </TimelineContent>
         </TimelineItem>
         <TimelineItem>
-        <TimelineOppositeContent
-            sx={{ m: "auto 0", color: 'rgba(var(--text-color-rgb), 60%)', }}
+          <TimelineOppositeContent
+            sx={{ m: "auto 0", color: "rgba(var(--text-color-rgb), 60%)" }}
             variant="body2"
             color="text.secondary"
           >
@@ -127,19 +149,16 @@ export default function ClubHistory() {
           </TimelineOppositeContent>
           <TimelineSeparator>
             <TimelineConnector />
-            <TimelineDot>
-              {/* <HotelIcon /> */}
-            </TimelineDot>
+            <TimelineDot>{/* <HotelIcon /> */}</TimelineDot>
             <TimelineConnector />
           </TimelineSeparator>
           <TimelineContent sx={{ py: "120px", px: 2 }}>
-          <CTimelineItem
+            <CTimelineItem
               event={{ title: "Hi", description: "Hello" }}
               align={"right"}
             />
           </TimelineContent>
         </TimelineItem>
-        
       </Timeline>
     </div>
   );

@@ -14,7 +14,7 @@ const router = Router()
 router.post('/authenticate', function authenticate(req: Request, res: Response, next: NextFunction) {
   userService.authenticate(req.body)
     .then((user: User) => res.json(user))
-    .catch(next);
+    .catch((error) => next(error));
 })
 
 router.get('/whoami', authorize(), async function whoami(req: any, res: Response, next: NextFunction): Promise<void> {
@@ -117,6 +117,7 @@ router.get('/verify-email/:id/:token', async (req: Request, res: Response, next:
 
 router.post('/register', async function register(req: Request, res: Response, next: NextFunction) {
   try {
+    if( !req.body.email || !(req.body.email.endsWith("@gcet.edu.in"))) throw "Only GCET Official mail id are supported."
     await userService.create({ username: req.body.username, password: req.body.password, phash: req.body.phash, email: req.body.email });
     res.json({ message: 'Registration successful' });
   } catch (error) {

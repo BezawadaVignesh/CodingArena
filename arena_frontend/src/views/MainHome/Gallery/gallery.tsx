@@ -8,31 +8,6 @@ import { useParams } from 'react-router-dom';
 import Navbar from '../../../components/Navbar/Navbar';
 import './gallery.css';
 
-const images = [
-  // Replace with URLs of your images
-  'https://as2.ftcdn.net/v2/jpg/05/62/02/41/1000_F_562024161_tGM4lFlnO0OczLYHFFuNNdMUTG9ekHxb.jpg',
-  'https://i.pinimg.com/564x/0d/7e/82/0d7e82b92410eaa678875baeb5f89c48.jpg',
-  'https://as1.ftcdn.net/v2/jpg/05/71/62/28/1000_F_571622875_4trcUjLRzb5NpPvkvC6xMW9DYqO0vTkw.jpg',
-  'https://as1.ftcdn.net/v2/jpg/06/03/60/40/1000_F_603604052_ymJlfUg5aemPj2iEqHqeMgUwBwrW5gQN.jpg',
-  'https://i.pinimg.com/736x/29/35/6e/29356e49cde37392aff7bc973f9ff4c9.jpg',
-  'https://as1.ftcdn.net/v2/jpg/08/09/35/22/1000_F_809352202_yFEGoy9LNbKndkxEnZ7CraZHppvJvMQ1.jpg',
-  'https://i.pinimg.com/564x/2c/1a/3d/2c1a3d9fcaa213eaae89b66341f22438.jpg',
-  'https://i.pinimg.com/474x/e1/1a/c0/e11ac0f5655e23c127b0781d5cd0fc87.jpg',
-  'https://as2.ftcdn.net/v2/jpg/05/68/98/15/1000_F_568981524_2irG4VUSs06xbahAihTpkuSfxKkw8FqX.jpg',
-  'https://i.pinimg.com/564x/2d/c3/50/2dc3508e8def0040877ad744bad58e6f.jpg',
-  'https://as1.ftcdn.net/v2/jpg/06/16/04/08/1000_F_616040809_P7GnXUB8vO47gf3pleM0ed7D9n87sh9a.jpg',
-  'https://as2.ftcdn.net/v2/jpg/05/62/02/41/1000_F_562024161_tGM4lFlnO0OczLYHFFuNNdMUTG9ekHxb.jpg',
-  'https://i.pinimg.com/564x/0d/7e/82/0d7e82b92410eaa678875baeb5f89c48.jpg',
-  'https://as1.ftcdn.net/v2/jpg/05/71/62/28/1000_F_571622875_4trcUjLRzb5NpPvkvC6xMW9DYqO0vTkw.jpg',
-  'https://as1.ftcdn.net/v2/jpg/06/03/60/40/1000_F_603604052_ymJlfUg5aemPj2iEqHqeMgUwBwrW5gQN.jpg',
-  'https://i.pinimg.com/736x/29/35/6e/29356e49cde37392aff7bc973f9ff4c9.jpg',
-  'https://as1.ftcdn.net/v2/jpg/08/09/35/22/1000_F_809352202_yFEGoy9LNbKndkxEnZ7CraZHppvJvMQ1.jpg',
-  'https://i.pinimg.com/564x/2c/1a/3d/2c1a3d9fcaa213eaae89b66341f22438.jpg',
-  'https://i.pinimg.com/474x/e1/1a/c0/e11ac0f5655e23c127b0781d5cd0fc87.jpg',
-  'https://as2.ftcdn.net/v2/jpg/05/68/98/15/1000_F_568981524_2irG4VUSs06xbahAihTpkuSfxKkw8FqX.jpg',
-  'https://i.pinimg.com/564x/2d/c3/50/2dc3508e8def0040877ad744bad58e6f.jpg',
-  'https://as1.ftcdn.net/v2/jpg/06/16/04/08/1000_F_616040809_P7GnXUB8vO47gf3pleM0ed7D9n87sh9a.jpg',
-];
 
 // const Gallery: React.FC = () => {
 //   return (

@@ -3,7 +3,7 @@ import { useLayoutEffect, useState } from "react";
 import './transition.css';
 
 export const TransitionOverlay = ({ children, msg }: { children: JSX.Element, msg?: string }) => {
-  const [locationName, setLocationName] = useState("");
+  const [_locationName, setLocationName] = useState("");
 
   useLayoutEffect(() => {
     const locationArr = location.pathname

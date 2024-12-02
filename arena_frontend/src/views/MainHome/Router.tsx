@@ -165,6 +165,7 @@ const routes: RouteObject[] = [
     element: (
       <TransitionOverlay msg="Standings">
         <div>
+          <DotCursor />
           <Navbar time={1.5} />
           <LeaderBoardPage />
         </div>

@@ -20,7 +20,10 @@ const useDarkModeOnScroll = (darkElementsCount: number) => {
     };
 
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      document.body.classList.remove("__dark-mode");
+      window.removeEventListener('scroll', handleScroll);
+    }
   }, []);
 
   return darkElementsRefs;

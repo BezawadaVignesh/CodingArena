@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 
 const obj = [
   `
@@ -10,65 +9,37 @@ Welcome to the GCET Coding Club—a place to code, grow, and evolve with creativ
 `,
 ];
 
-const SvgAnimationComplete = () => {
-  return (
-    <motion.svg
-      width="200"
-      height="200"
-      viewBox="0 0 200 200"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <motion.circle
-        cx="100"
-        cy="100"
-        r="80"
-        stroke="blue"
-        strokeWidth="10"
-        fill="none"
-        initial={{ pathLength: 0, opacity: 0, rotate: 0 }}
-        animate={{ pathLength: 1, opacity: 1, rotate: 360 }}
-        transition={{
-          duration: 4,
-          ease: "easeInOut",
-          repeat: Infinity,
-          repeatType: "loop",
-        }}
-      />
-    </motion.svg>
-  );
-};
-
-  
-
 const Objective = () => {
   return (
     <div
       style={{
-        minHeight: '100vh',
-        display: 'grid',
-        placeItems: 'center',
+        minHeight: "100vh",
+        display: "grid",
+        placeItems: "center",
         paddingBlock: "100px",
         backgroundColor: "var(--bg-color)",
         color: "var(--text-color)",
       }}
     >
       <div>
-      <div className="__section-title" style={{paddingBottom: '75px'}}>Objective</div>
-      <div
-        style={{
-          paddingInline: "6vw",
-          textIndent: "5vw",
-          textAlign: "justify",
-          fontSize: "1.1rem",
-          display: "flex",
-          flexDirection: "column",
-          rowGap: "10px",
-        }}
-      >
-        <div style={{}}>{obj[0]}</div>
-        <div>{obj[1]}</div>
-        <div>{obj[2]}</div>
-      </div>
+        <div className="__section-title" style={{ paddingBottom: "75px" }}>
+          Objective
+        </div>
+        <div
+          style={{
+            paddingInline: "6vw",
+            textIndent: "5vw",
+            textAlign: "justify",
+            fontSize: "1.1rem",
+            display: "flex",
+            flexDirection: "column",
+            rowGap: "10px",
+          }}
+        >
+          <div style={{}}>{obj[0]}</div>
+          <div>{obj[1]}</div>
+          <div>{obj[2]}</div>
+        </div>
       </div>
     </div>
   );

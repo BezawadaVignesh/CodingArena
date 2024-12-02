@@ -1,0 +1,29 @@
+{
+  "name": "coding_club",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "fi": "cd arena_frontend && npm i",
+    "front:dev": "cd arena_frontend && npm run dev",
+    "front:devhost": "cd arena_frontend && npm run devhost",
+    "front:build": "cd arena_frontend && npm run build",
+    "front:lint": "cd arena_frontend && npm run lint",
+    "front:preview": "cd arena_frontend && npm run preview",
+
+    "bi": "cd arena_backend && npm i",
+    "back:build": "cd arena_backend && npm run build",
+    "back:start": "cd arena_backend && npm run start",
+    "back:dev": "cd arena_backend && npm run dev",
+    "back:db:create": "cd arena_backend && npm run db:create",
+    "back:db:migrate": "cd arena_backend && npm run db:migrate",
+    "back:db:migrate:undo": "cd arena_backend && npm run db:migrate:undo",
+    "back:db:test": "cd arena_backend && npm run db:test"
+  },
+  "dependencies": {
+    
+  },
+  "devDependencies": {
+    
+  }
+}

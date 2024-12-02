@@ -2,7 +2,7 @@ import confetti from "canvas-confetti";
 import React, { useEffect, useState } from "react";
 import Confetti from "react-confetti";
 import ConfettiExplosion from 'react-confetti-explosion';
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import DotCursor from "../../DotCursor/DotCursor";
 import './Countdown.css'; // For custom styling
 
@@ -12,17 +12,10 @@ function Countdown() {
   const [isFinished, setIsFinished] = useState(false); // Track if countdown is finished
   const [confettiVisible, setConfettiVisible] = useState(false);
   const [isExploding, setIsExploding] = React.useState(false);
-  const navigate = useNavigate();
   const startTimer = () => {
     setIsActive(true); // Activate timer when button is clicked
   };
 
-  const resetTimer = () => {
-    setTimeLeft(10); // Reset time to 10 seconds
-    setIsActive(false); // Deactivate countdown
-    setIsFinished(false); // Reset finished state
-    setConfettiVisible(false);
-  };
 
   useEffect(() => {
     let timer:number;

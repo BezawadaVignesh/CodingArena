@@ -1,9 +1,7 @@
 import bcrypt from 'bcryptjs';
-import crypto from 'crypto';
 import * as jwt from 'jsonwebtoken';
 import * as config from "../../../config";
-import { sendEmail } from '../common';
-import { User, VerifyToken } from "../models/user.model";
+import { User } from "../models/user.model";
 
 export async function authenticate({ username, password }: {username:string, password:string}) {
     const user = await User.scope('withHash').findOne({ where: { username } });

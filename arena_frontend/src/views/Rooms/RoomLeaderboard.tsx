@@ -7,65 +7,85 @@ import { AlertContext } from "../../components/common/AlertProvider";
 import Navbar from "../../components/common/Navbar";
 
 const RoomLeaderboard = () => {
-    const { id: contestId } = useParams()!;
-    const alert = useContext(AlertContext);
-    const [leaderboard, setLeaderboard] = useState([]);
-    const [reload, setReload] = useState(false);
-    const [id, setId] = useState<number>(-1);
-    
-    
-    useEffect(() => {
-      (async () => {
+  const { id: contestId } = useParams()!;
+  const alert = useContext(AlertContext);
+  const [leaderboard, setLeaderboard] = useState([]);
+  const [reload, _setReload] = useState(false);
+  // const [id, setId] = useState<number>(-1);
+
+  useEffect(() => {
+    (async () => {
+      try {
         const { data } = await Axios.get(`/api/room/leaderboard/${contestId}`);
-        console.log(data)
-        setLeaderboard(data.flat())
-  
-      })();
-    }, [reload]);
-    return (
-      <>
-        <Navbar />
-        <Card
-          sx={{
-            width: "90%",
-            margin: "20px auto",
-            // "& .data-grid-header": {
-            //   backgroundColor: "rgba(150, 150, 150, 0.7)",
-            //   color: 'white'
-            // },
-            maxWidth: '1000px',
-            paddingBlock: '50px',
-            boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)'
-          
-          }}
-        >
-  
-          <div style={{
+        console.log(data);
+        setLeaderboard(data.flat());
+      } catch (e) {
+        alert?.showAlert(
+          "Couldn't load room leaderboard plaese try later",
+          "error"
+        );
+      }
+    })();
+  }, [reload]);
+  return (
+    <>
+      <Navbar />
+      <Card
+        sx={{
+          width: "90%",
+          margin: "20px auto",
+          // "& .data-grid-header": {
+          //   backgroundColor: "rgba(150, 150, 150, 0.7)",
+          //   color: 'white'
+          // },
+          maxWidth: "1000px",
+          paddingBlock: "50px",
+          boxShadow:
+            "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
+        }}
+      >
+        <div
+          style={{
             fontSize: "25px",
-            paddingBottom: '30px',
+            paddingBottom: "30px",
             textAlign: "center",
             fontFamily: '"M PLUS Rounded 1c", sans-serif',
             margin: "auto 100px",
             fontWeight: 600,
-          }}>Leaderboard</div>
-          <DataGrid
-            sx={{ width: "80%", margin: "auto", }}
-            getRowId={(row: any) => { return row.username+row.latestSubmissionTime; }}
-            columns={[
-              { field: "username", headerName: "Username", headerClassName: 'data-grid-header', flex: 2 },
-              { field: "totalScore", headerName: "Score", headerClassName: 'data-grid-header', flex: 1 },
-              {
-                field: "latestSubmissionTime",
-                headerName: "Time",
-                headerClassName: 'data-grid-header',
-                flex: 2,
-              },
-              {
-                field: "contestName",
-                headerName: "Contest Name",
-                headerClassName: 'data-grid-header',
-                flex: 2,
-              },
+          }}
+        >
+          Leaderboard
+        </div>
+        <DataGrid
+          sx={{ width: "80%", margin: "auto" }}
+          getRowId={(row: any) => {
+            return row.username + row.latestSubmissionTime;
+          }}
+          columns={[
+            {
+              field: "username",
+              headerName: "Username",
+              headerClassName: "data-grid-header",
+              flex: 2,
+            },
+            {
+              field: "totalScore",
+              headerName: "Score",
+              headerClassName: "data-grid-header",
+              flex: 1,
+            },
+            {
+              field: "latestSubmissionTime",
+              headerName: "Time",
+              headerClassName: "data-grid-header",
+              flex: 2,
+            },
+            {
+              field: "contestName",
+              headerName: "Contest Name",
+              headerClassName: "data-grid-header",
+              flex: 2,
+            },
             //   {
             //     field: "actions",
             //     headerName: "Actions",
@@ -91,23 +111,19 @@ const RoomLeaderboard = () => {
             //       ];
             //     }
             //   },
-            ]}
-            rows={leaderboard}
-            disableRowSelectionOnClick
-            // editMode="row"
-            initialState={{ pagination: { paginationModel: { pageSize: 15 } } }}
-            pageSizeOptions={[15, 30, 50]}
-            autoHeight
-            slots={{ toolbar: GridToolbar }}
+          ]}
+          rows={leaderboard}
+          disableRowSelectionOnClick
+          // editMode="row"
+          initialState={{ pagination: { paginationModel: { pageSize: 15 } } }}
+          pageSizeOptions={[15, 30, 50]}
+          autoHeight
+          slots={{ toolbar: GridToolbar }}
           // sx={{ "--DataGrid-overlayHeight": "300px" }}
-          />
-  
-        </Card>
-        
-        
-      </>
-    );
-  };
-  
-  export default RoomLeaderboard;
-  
+        />
+      </Card>
+    </>
+  );
+};
+
+export default RoomLeaderboard;

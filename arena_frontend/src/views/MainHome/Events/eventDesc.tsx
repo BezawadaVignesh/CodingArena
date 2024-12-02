@@ -29,13 +29,7 @@ const EventPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const eventId = id ? Number(id) : NaN;
   const event = events[eventId];
-  const names = [
-    'John Doe',
-    'Jane Smith',
-    'Alice Johnson',
-    'Bob Brown',
-    'Charlie Williams',
-  ];
+  
   // Event details in Markdown format
   const eventDetails = `
   ## Event Details

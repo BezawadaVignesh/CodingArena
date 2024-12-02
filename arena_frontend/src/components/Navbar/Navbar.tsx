@@ -1,8 +1,5 @@
-import { Logout } from "@mui/icons-material";
-import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import MenuIcon from '@mui/icons-material/Menu';
 import {
-  Avatar,
   Box,
   Button,
   Divider,
@@ -13,8 +10,6 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  Menu,
-  MenuItem,
   styled
 } from "@mui/material";
 import { useState } from "react";
@@ -26,66 +21,66 @@ import { motion } from "framer-motion";
 import "./Navbar.module.css";
 import "./styles.css";
 
-function UserDisplay({ user, logOut }: { user: string; logOut: () => void }) {
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+// function UserDisplay({ user, logOut }: { user: string; logOut: () => void }) {
+//   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+//   const open = Boolean(anchorEl);
+//   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+//     setAnchorEl(event.currentTarget);
+//   };
+//   const handleClose = () => {
+//     setAnchorEl(null);
+//   };
 
-  const navigate = useNavigate();
-  return (
-    <div>
-      <Button
-        sx={{
-          margin: 0,
-          padding: 0,
-          textTransform: "none",
-          color: "inherit",
-          display: "flex",
-          alignItems: "center",
-          "&:hover": { backgroundColor: "inherit" },
-          "&:checked": {},
-        }}
-        disableRipple
-        onClick={handleClick}
-      >
-        <Avatar sx={{ height: "30px", width: "30px", marginRight: 1 }}></Avatar>{" "}
-        {user}
-      </Button>
-      <Menu
-        id="basic-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        MenuListProps={{
-          "aria-labelledby": "basic-button",
-        }}
-      >
-        {/* <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem> */}
-        <MenuItem onClick={() => navigate("/admin/home")}>
-          <ListItemIcon>
-            <AdminPanelSettingsIcon />
-          </ListItemIcon>
-          Admin View
-        </MenuItem>
-        <Divider />
-        <MenuItem onClick={logOut}>
-          <ListItemIcon>
-            <Logout fontSize="small" />
-          </ListItemIcon>
-          Logout
-        </MenuItem>
-      </Menu>
-    </div>
-  );
-}
+//   const navigate = useNavigate();
+//   return (
+//     <div>
+//       <Button
+//         sx={{
+//           margin: 0,
+//           padding: 0,
+//           textTransform: "none",
+//           color: "inherit",
+//           display: "flex",
+//           alignItems: "center",
+//           "&:hover": { backgroundColor: "inherit" },
+//           "&:checked": {},
+//         }}
+//         disableRipple
+//         onClick={handleClick}
+//       >
+//         <Avatar sx={{ height: "30px", width: "30px", marginRight: 1 }}></Avatar>{" "}
+//         {user}
+//       </Button>
+//       <Menu
+//         id="basic-menu"
+//         anchorEl={anchorEl}
+//         open={open}
+//         onClose={handleClose}
+//         MenuListProps={{
+//           "aria-labelledby": "basic-button",
+//         }}
+//       >
+//         {/* <MenuItem onClick={handleClose}>Profile</MenuItem>
+//         <MenuItem onClick={handleClose}>My account</MenuItem> */}
+//         <MenuItem onClick={() => navigate("/admin/home")}>
+//           <ListItemIcon>
+//             <AdminPanelSettingsIcon />
+//           </ListItemIcon>
+//           Admin View
+//         </MenuItem>
+//         <Divider />
+//         <MenuItem onClick={logOut}>
+//           <ListItemIcon>
+//             <Logout fontSize="small" />
+//           </ListItemIcon>
+//           Logout
+//         </MenuItem>
+//       </Menu>
+//     </div>
+//   );
+// }
 
-const NavButtonActive = styled(Button)(({ theme }) => ({
+const NavButtonActive = styled(Button)(() => ({
   textTransform: 'none', // Remove uppercase transformation
   color: "var(--text-color)", // Use the primary text color
   position: 'relative',
@@ -108,7 +103,7 @@ const NavButtonActive = styled(Button)(({ theme }) => ({
   },
 }));
 
-const NavButton = styled(Button)(({ theme }) => ({
+const NavButton = styled(Button)(() => ({
   textTransform: "none",
   color: "var(--text-color)",
   position: "relative",
@@ -158,15 +153,16 @@ import GroupsIcon from '@mui/icons-material/Groups';
 import HomeIcon from '@mui/icons-material/Home';
 import LeaderboardIcon from '@mui/icons-material/Leaderboard';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+
 const pageData = [
-  ["Home", <HomeIcon />, "/home"],
-  ["Events", <EventIcon />, "/home/Events"],
-  ["Announcements", <NotificationsIcon />, "/home/announcements"],
-  ["Standings", <LeaderboardIcon />, "/home/standings"],
-  ["Our Team", <GroupsIcon />, "/home/our-team"],
-  ["Projects", <CodeIcon />, "/home/projects"],
-  ["Gallery", <CollectionsIcon />, "/home/gallery"],
-  ["Contact Us", <ContactMailIcon />, "/home/contact-us"]
+  ["Home", <HomeIcon />, "/home",],
+  ["Events", <EventIcon />, "/home/Events",],
+  ["Announcements", <NotificationsIcon />, "/home/announcements",],
+  ["Standings", <LeaderboardIcon />, "/home/standings",],
+  ["Our Team", <GroupsIcon />, "/home/our-team",],
+  ["Projects", <CodeIcon />, "/home/projects",],
+  ["Gallery", <CollectionsIcon />, "/home/gallery",],
+  ["Contact Us", <ContactMailIcon />, "/home/contact-us",]
 ];
 
 
@@ -213,9 +209,10 @@ const DrawerNav = ({ open, setOpen }: { open: boolean; setOpen: React.Dispatch<R
               <ListItem key={page[0] as string} disablePadding sx={{ backgroundColor: linkIdx == index ? "black" : "", color: linkIdx == index ? "white" : "" }}>
                 <ListItemButton onClick={() => { setOpen(false); navigate(page[2] as string) }} >
                   <ListItemIcon sx={{ color: linkIdx == index ? "white" : "" }}>
-                    {page[1]}
+                    {page[1] as string}
                   </ListItemIcon>
-                  <ListItemText primary={page[0]} sx={{ fontSize: "5em" }} />
+                  {/* {page[0]} */}
+                  <ListItemText primary={page[0] as string} sx={{ fontSize: "5em" }} />
                 </ListItemButton>
               </ListItem>
             ))}

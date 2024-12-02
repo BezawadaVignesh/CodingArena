@@ -80,6 +80,8 @@ function ProblemHelper({
           // console.log(data)
           setQ(data.q);
           setTitle(data.title);
+          setInput(data.input);
+          setOutput(data.output);
         } catch (e) {
           alert?.showAlert("Couldn't loaad problems previous data", "error");
         }
@@ -109,6 +111,8 @@ function ProblemHelper({
         : await Axios.post(`/api/problem/edit/${problemId}`, {
             title,
             q,
+            input,
+            output,
           });
 
     if ("error" in data) {
@@ -116,7 +120,9 @@ function ProblemHelper({
     } else {
       setTitle("");
       setQ("");
-      // TODO: SnackBar here
+      setInput("");
+      setOutput("");
+      alert?.showAlert("Data Updated", "success");
       handleClose();
     }
   };

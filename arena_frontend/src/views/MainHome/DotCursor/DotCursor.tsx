@@ -25,6 +25,9 @@ const DotCursor = ({expand=false}:{expand?:boolean}) => {
         style={{
           width: expand ? '250px' : '15px' ,
           height: expand ? '250px' : '15px',
+          filter: expand ? 'invert(0.85)' : 'none',
+          mixBlendMode: expand ? 'difference' : undefined,
+          border: '1px solid #ccc',
           // ...(!expand && {filter: 'none'}),
           left: `${mousePos.x}px`,
           top: `${mousePos.y}px`,
