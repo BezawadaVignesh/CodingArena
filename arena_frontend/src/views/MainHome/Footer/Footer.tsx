@@ -43,8 +43,8 @@ export default function Footer() {
             <ul className="link-list">
               <li><Link to="/home" className="link-item">Home</Link></li>
               <li><Link to="/home/announcements" className="link-item">Anouncements</Link></li>
-              <li><Link to="/home/our-team" className="link-item">About Us</Link></li>
-              <li><Link to="/home/contact-us" className="link-item">Contact</Link></li>
+              <li><Link to="/home/our-team" className="link-item">Our Team</Link></li>
+              <li><Link to="/home/contact-us" className="link-item">Contact Us</Link></li>
             </ul>
           </div>
 
@@ -53,12 +53,12 @@ export default function Footer() {
             <h3 className="section-title">Contact Info</h3>
             <ul className="contact-list">
               <li className="contact-item">
-                <LocationOnIcon className="icon" />
-                123 Commerce St, City, Country
+                <LocationOnIcon className="icon" onClick={()=>{window.open('https://www.google.com', '_blank');}} />
+                Cheeryal Village, Keesara Mandal, Hyderabad, Telangana 501301
               </li>
               <li className="contact-item">
                 <PhoneIcon className="icon" />
-                +1 234 567 890
+                +91 9989496999
               </li>
               <li className="contact-item">
                 <MailIcon className="icon" />

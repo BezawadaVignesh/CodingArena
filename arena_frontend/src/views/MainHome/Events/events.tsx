@@ -13,7 +13,7 @@ import { StyledTab, StyledTabs } from "../../AdminCodeRunner";
 
 interface Event {
   id: number;
-  image: string;
+  image?: string;
   title: string;
   subtitle: string;
   date: string;
@@ -117,19 +117,10 @@ const EventsPage: React.FC = () => {
   const pastEvents = [
     {
       id: 3,
-      image: "/codeSprint1.0.jpeg",
-      title: "Dinger Round",
-      subtitle: "Coding",
-      date: "Aug 8th, 2022",
-      location: "Geethanjali College of Engineering and Technology,Cheeryal",
-      isPresent: false,
-    },
-    {
-      id: 4,
-      image: "/codeSprint1.0.jpeg",
-      title: "Logo Design Competition",
-      subtitle: "Design Competition",
-      date: "Aug 25th, 2022",
+      image: "/codecreate.png",
+      title: "Code Create Connect",
+      subtitle: "Code Create Connect, organized by GCET_Coding_Club on December 1st, saw 200+ participants. Led by Sowjanya (CSE, Final Year), the session covered DSA, career tips, LinkedIn/X profile building, and global tech opportunities, with support from Principal Dr. Udaya Kumar Susarla and faculty coordinators.",
+      date: "December 1st 2023",
       location: "Geethanjali College of Engineering and Technology,Cheeryal",
       isPresent: false,
     },
@@ -137,8 +128,17 @@ const EventsPage: React.FC = () => {
       id: 5,
       image: "/codeSprint1.0.jpeg",
       title: "Code Sprint 1.0",
-      subtitle: "Code Sprint 1.0, organized by GCET_Coding_Club",
+      subtitle: "Code Sprint 1.0, organized by GCET_Coding_Club in July-August 2023, featured two rounds with 300+ participants. The first online round, held on July 20, 2023, included 30 MCQs, and 80 students with scores above 60% advanced to the second offline round on August 1, 2023, at GCET’s Block-V labs.",
       date: "Aug 1st, 2023",
+      location: "Geethanjali College of Engineering and Technology,Cheeryal",
+      isPresent: false,
+    },
+    {
+      id: 4,
+      image: "/codeSprint2.0.jpg",
+      title: "Code Sprint 2.0",
+      subtitle: "CODE SPRINT 2.0 was a two-round coding contest held at GCET, with an online round on June 19, 2024, and a final offline round on June 21, 2024. Hosted on the Smart Interviews platform, it featured diverse problem sets and offered cash prizes for top performers.",
+      date: " June 19, 2024",
       location: "Geethanjali College of Engineering and Technology,Cheeryal",
       isPresent: false,
     },
@@ -172,7 +172,7 @@ const EventsPage: React.FC = () => {
             value={tab}
             variant="fullWidth"
           >
-            <StyledTab label="OnGoing" value={1} />
+            <StyledTab label="Ongoing" value={1} />
             <StyledTab label="Past Events" value={2} />
           </StyledTabs>
         </Box>

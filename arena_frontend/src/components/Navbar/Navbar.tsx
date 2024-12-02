@@ -183,7 +183,8 @@ const DrawerNav = ({ open, setOpen }: { open: boolean; setOpen: React.Dispatch<R
 
   const navigate = useNavigate();
   const location = useLocation();
-  const linkIdx = pageData.findIndex((path) => location.pathname == path[2])
+  const linkIdx = pageData.findIndex((path) => location.pathname == path[2]);
+  
   return (
     <Drawer open={open} transitionDuration={1000} onClose={() => { setOpen(false); }}>
       <motion.div
@@ -230,7 +231,7 @@ const Navbar :React.FC<Time>= ({time=2.5}) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
-  const linkIdx = pageData.findIndex((path) => location.pathname == path[2])
+  const linkIdx = pageData.findIndex((path) => location.pathname == path[2]);
   return (
     <div>
       <NavBox>
@@ -251,8 +252,8 @@ const Navbar :React.FC<Time>= ({time=2.5}) => {
           {
             <div className={"__nav-buttons " + style.nav} >
               {pageData.map((page, index) => (
-                (index == linkIdx) ? <NavButtonActive>{page[0]}</NavButtonActive> :
-                  <NavButton onClick={() => navigate(page[2] as string)}>{page[0]}</NavButton>
+                (index == linkIdx) ? <NavButtonActive key={page[0] as string} >{page[0]}</NavButtonActive> :
+                  <NavButton key={page[0] as string} onClick={() => navigate(page[2] as string)}>{page[0]}</NavButton>
               ))}
             </div>
 

@@ -1,7 +1,6 @@
-import { GitHub } from '@mui/icons-material';
-import EmailIcon from '@mui/icons-material/Email';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import XIcon from '@mui/icons-material/X';
+import { Button, ButtonGroup, styled } from '@mui/material';
+import { useState } from 'react';
+import Members from '../../../components/common/MemberData';
 import './styles.css';
 
 type MemberData = {
@@ -72,7 +71,7 @@ const students: MemberData[] = [
     x: "",
     linkedIn: "",
     mail: "21r11a05f8@gcet.edu.in",
-    img: "",
+    img: "/Vignesh2.png",
     github: "https://github.com/BezawadaVignesh",
   },
   {
@@ -82,7 +81,7 @@ const students: MemberData[] = [
     x: "",
     linkedIn: "",
     mail: "21r11a05k0@gcet.edu.in",
-    img: "",
+    img: "/harinath.jpg",
     github: "https://github.com/HarinathReddyR",
   },
   {
@@ -92,7 +91,7 @@ const students: MemberData[] = [
     x: "",
     linkedIn: "",
     mail: "21r11a05l0@gcet.edu.in",
-    img: "",
+    img: "/jaggu.jpg",
     github: "https://github.com/Jagadeesh-1314",
   },
   {
@@ -102,12 +101,25 @@ const students: MemberData[] = [
     x: "",
     linkedIn: "https://www.linkedin.com/in/rahul-bablu-a718b9273",
     mail: "21r11a05l4@gcet.edu.in",
-    img: "",
+    img: "/rahul.jpg",
     github: "https://github.com/rahul-bablu",
+  },
+]
+
+const members: MemberData[] = [
+  {
+    name: "Ruchith",
+    desig: "Member",
+    fbook: "",
+    x: "",
+    linkedIn: "",
+    mail: "",
+    img: "",
+    github: "",
   },
   {
     name: "Vardhan",
-    desig: "Coordinator",
+    desig: "Member",
     fbook: "",
     x: "",
     linkedIn: "",
@@ -117,7 +129,7 @@ const students: MemberData[] = [
   },
   {
     name: "Naveen",
-    desig: "Coordinator",
+    desig: "Member",
     fbook: "",
     x: "",
     linkedIn: "https://www.linkedin.com/in/naveen-rampa-aa1178270",
@@ -127,97 +139,8 @@ const students: MemberData[] = [
   },
 ]
 
-const members: MemberData[] = [
-  {
-    name: "B. Vignesh",
-    desig: "Member",
-    fbook: "",
-    x: "",
-    linkedIn: "",
-    mail: "",
-    img: "",
-    github: "",
-  },
-  {
-    name: "R. Harinath Reddy",
-    desig: "Member",
-    fbook: "",
-    x: "",
-    linkedIn: "",
-    mail: "",
-    img: "",
-    github: "",
-  },
-  {
-    name: "T. Jagadeesh Chandra",
-    desig: "Member",
-    fbook: "",
-    x: "",
-    linkedIn: "",
-    mail: "",
-    img: "",
-    github: "",
-  },
-  {
-    name: "Y. Rahul",
-    desig: "Member",
-    fbook: "",
-    x: "",
-    linkedIn: "",
-    mail: "",
-    img: "",
-    github: "",
-  },
-  {
-    name: "Vardhan",
-    desig: "Member",
-    fbook: "",
-    x: "",
-    linkedIn: "",
-    mail: "",
-    img: "",
-    github: "",
-  },
-  {
-    name: "Naveen",
-    desig: "Member",
-    fbook: "",
-    x: "",
-    linkedIn: "",
-    mail: "",
-    img: "",
-    github: "",
-  },
-]
 
-const Members = ({ data }: { data: MemberData; }) => {
-  return (
-    <div style={{
-      display: "flex",
-      flexDirection: "column",
-      rowGap: 15,
-      alignItems: "center",
-      justifyContent: "center",
-      padding: 20
-    }}>
-      <img src={data.img || "/default-member.jpg"} alt="img" width={200} height={200} style={{ borderRadius: "50%", }} />
-      <div style={{ fontWeight: "500" }} >{data.name}</div>
-      <div style={{ fontWeight: "450", fontSize: 15, color: "#383838" }} >{data.desig}</div>
-      <div style={{
-        display: "flex",
-        flexDirection: "row",
-        columnGap: 15,
-        alignItems: "center"
-      }}>
-        {<a href={"mailto:"+data.mail} target='__blank' style={{ textDecoration: "none", color: "black" }} ><EmailIcon /></a>}
-        {<a href={data.x} target='__blank' style={{ textDecoration: "none", color: "black" }} ><XIcon /></a>}
-        {<a href={data.linkedIn} target='__blank' style={{textDecoration:"none", color: "black"}} ><LinkedInIcon /></a>}
-        {data.github && <a href={data.github} target='__blank' style={{textDecoration:"none", color: "black"}} ><GitHub /></a>}
 
-      </div>
-    </div>
-  )
-}
 
 const TeamCategory = ({ name, data }: { name: string; data: MemberData[]; }) => {
   return (
@@ -226,7 +149,7 @@ const TeamCategory = ({ name, data }: { name: string; data: MemberData[]; }) => 
 
     }}>
       <div
-        
+
         style={{
           display: "flex",
           justifyContent: "center",
@@ -256,35 +179,73 @@ const TeamCategory = ({ name, data }: { name: string; data: MemberData[]; }) => 
   )
 }
 
+const FilterButton = styled(Button)(({ }) => ({
+  // backgroundColor: "black",
+  color: "var(--text-color)",
+  fontFamily: "Poppins",
+  borderColor: "black",
+  "&:hover": {
+    backgroundColor: "black",
+    color: "white",
+  }
+}));
+
 const OurTeam = () => {
-  // const [value, setValue] = useState(0);
+  const buttons = ['All', 'Faculty', 'Students', 'Others'];
+  const [selectedButton, setSelectedButton] = useState(buttons[0]);
   return (
     <div style={{
       marginTop: 100, marginBottom: 100, fontFamily: "Poppins",
-      width: "100%"
+      width: "100%",
+
+      paddingInline: "5%"
     }}>
       <div style={{
         display: "flex",
         justifyContent: "justify",
         flexDirection: "column",
         alignItems: "center",
-        padding: 5,
+        // padding: 5,
 
       }}>
-        <div style={{ fontSize: "2.5em", fontWeight: 700 }}>Our Team</div>
+        <h1 style={{ fontSize: "1.9em", fontWeight: 700 }}>Our Team</h1>
         {/* <Divider/> */}
-        <div style={{ marginTop: 10 }}>The strength of the team is each individual member. The strength of each member is the team.</div>
-        <div>- Phil Jackson</div>
-        {/* <Tabs value={value} onChange={(__: React.SyntheticEvent, newValue: number) => { setValue(newValue); }} aria-label="tabs">
-          <Tab label="All" />
-          <Tab label="Faculty" />
-          <Tab label="Students"  />
-          <Tab label="Other Members" />
-        </Tabs> */}
+        <p style={{ marginTop: 10 }}>The strength of the team is each individual member. The strength of each member is the team.</p>
+        <p>- Phil Jackson</p>
+        <div style={{ marginBlock: 50, borderRadius: 20, paddingInline: 15 }}>
+          <ButtonGroup
+            variant="outlined"
+            aria-label="Basic button group"
+            sx={{
+              // borderRadius: 10,
+              '& .MuiButtonGroup-grouped:not(:last-of-type)': {
+                borderColor: "none"
+              },
+              height: 45,
+
+            }}
+          >
+            {
+              buttons.map(button => (
+                <FilterButton
+                  onClick={() => setSelectedButton(button)}
+                  variant={selectedButton === button ? 'contained' : 'outlined'}
+                  sx={{
+                    backgroundColor: selectedButton === button ? "black": "",
+                    color: selectedButton === button ? "white": "black",
+                  }}
+                >
+                  {button}
+                </FilterButton>
+              ))
+            }
+          </ButtonGroup>
+        </div>
       </div>
-      <TeamCategory name={"Faculty"} data={faculty} />
-      <TeamCategory name={"Students"} data={students} />
-      <TeamCategory name={"Other Members"} data={members} />
+
+      {(selectedButton === "All" || selectedButton === "Faculty") ? <TeamCategory name={"Faculty"} data={faculty} /> : <></>}
+      {(selectedButton === "All" || selectedButton === "Students") ? <TeamCategory name={"Students"} data={students} /> : <></>}
+      {(selectedButton === "All" || selectedButton === "Others") ? <TeamCategory name={"Other Members"} data={members} /> : <></>}
     </div>
   )
 }

@@ -54,23 +54,23 @@ const ContactForm = () => {
         }}>
           <div style={{ display: "flex", flexDirection: "column", rowGap: 1 }}>
             Name
-            <MyTextField sx={{}} id="outlined-basic" variant="outlined" onChange={(e)=>{setName([e.target.value, false])}} />
+            <StyledTextField sx={{}} id="outlined-basic" variant="outlined" onChange={(e)=>{setName([e.target.value, false])}} />
             {name[1] && <WarnFill />}
           </div>
           <div style={{ display: "flex", flexDirection: "column", rowGap: 1 }}>
             Email
-            <MyTextField type="email" sx={{}} id="outlined-basic" variant="outlined" onChange={(e)=>{setEmail([e.target.value, false])}} />
+            <StyledTextField type="email" sx={{}} id="outlined-basic" variant="outlined" onChange={(e)=>{setEmail([e.target.value, false])}} />
             {email[1] && <WarnFill />}
           </div>
           <div style={{ display: "flex", flexDirection: "column", rowGap: 1 }}>
             Phone Number (Optional)
-            <MyTextField sx={{}} id="outlined-basic" variant="outlined" onChange={(e)=>{setPhn([e.target.value, false])}} />
+            <StyledTextField sx={{}} id="outlined-basic" variant="outlined" onChange={(e)=>{setPhn([e.target.value, false])}} />
             {phn[1] && <WarnFill />}
           </div>
           <div style={{ display: "flex", flexDirection: "column", rowGap: 1 }}>
 
             Message
-            <MyTextField sx={{}} id="outlined-basic" variant="outlined" multiline onChange={(e)=>{setMsg([e.target.value, false])}} placeholder="Type your Message..." />
+            <StyledTextField sx={{}} id="outlined-basic" variant="outlined" multiline onChange={(e)=>{setMsg([e.target.value, false])}} placeholder="Type your Message..." />
             {msg[1] && <WarnFill />}
           </div>
           <Button variant="contained" sx={{
@@ -122,7 +122,7 @@ const Contact = ({ children, linkto }: { linkto: string; children: JSX.Element }
   )
 }
 
-const MyTextField = styled(TextField)(({ }) => ({
+const StyledTextField = styled(TextField)(({ }) => ({
   "& .MuiOutlinedInput-root": {
       "&.Mui-focused fieldset": {
         borderColor: "black", 
@@ -133,7 +133,7 @@ const MyTextField = styled(TextField)(({ }) => ({
 
 const ContactInfo = () => {
   const contacts = [
-    [<Phone />, "+ 91 7546825361", "tel:+917546825361"],
+    [<Phone />, "+91 9989496999", "tel:+919989496999"],
     [<Email />, "codingclub@gcet.edu.in", "mailto:codingclub@gcet.edu.in"],
     [<LocationOn />, "Cheeryal Village, Keesara Mandal, Hyderabad, Telangana 501301", "https://maps.google.com/maps?rlz=1C1CHBD_enIN971IN971&gs_lcrp=EgZjaHJvbWUqDwgCEC4YJxjJAxiABBiKBTIGCAAQRRg8MgwIARBFGDkYsQMYgAQyDwgCEC4YJxjJAxiABBiKBTIKCAMQLhixAxiABDIKCAQQLhixAxiABDIGCAUQRRg8MgYIBhBFGDwyBggHEEUYPNIBCDMwNTJqMGo0qAIAsAIA&um=1&ie=UTF-8&fb=1&gl=in&sa=X&ftid=0x3bcb9d3704b16971:0x522242e0977760ef&ved=2ahUKEwjN7J3Z79OJAxVrTWwGHXRuLNAQ4kB6BAg8EAE"]
   ];
@@ -147,7 +147,7 @@ const ContactInfo = () => {
       alignItems: "flex-start",
       width: "500px",
     }}>
-      <div style={{ fontSize: "2.5em", fontWeight: "700" }} >Contact Us</div>
+      <h1 style={{}} >Contact Us</h1>
       <div style={{display: "flex", flexDirection: "column", rowGap: 20}}>
       <div> Feel free to use the form or drop us an email. </div>
 

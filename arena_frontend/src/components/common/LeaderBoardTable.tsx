@@ -53,13 +53,14 @@ const HeaderGenerator = ({ header }: { header: any }) => {
                 colSpan={findColumnWidth(data.value)}
                 rowSpan={(!data.value) ? maxDepth - index : 1}
                 sx={{
-                  position: idx + index === 0 ? "sticky" : undefined,
+                  position: idx + index === 0  ? "sticky" : undefined,
                   left: idx + index === 0 ? 0 : undefined,
                   background: "white",
                   border: "1px solid #bbb",
                   fontFamily: "Poppins",
                   fontSize: "1.05rem",
                   fontWeight: "bold",
+                  width: idx + index === 0  ? "20px" : undefined,
                 }}
               >
                 {data.name}
@@ -101,7 +102,7 @@ const LeaderBoardTable = ({loading=false, ...data}:RowsData & {loading?:boolean}
             <TableRow key={row.join('')}>
               {row.map((data, index) => (
                 <TableCell
-                  key={idx + index}
+                  key={String(data) + idx + index}
                   align='center'
                   component="th"
                   scope="row"
@@ -113,6 +114,7 @@ const LeaderBoardTable = ({loading=false, ...data}:RowsData & {loading?:boolean}
                     zIndex: index % 2 !== 0 ? 2 : 1,
                     fontFamily: "Poppins",
                     border: "1px solid #bbb",
+                    width: index === 0  ? "20px" : undefined,
                   }}
                 >
                   {data}

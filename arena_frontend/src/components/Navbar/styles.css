@@ -12,7 +12,7 @@
 
 @media (max-width: 850px) {
   .__name-logo {
-    /* font-size: 1.5rem; */
+    font-size: 2em;
   }
   .__nav-buttons {
     display: none;

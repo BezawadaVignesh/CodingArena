@@ -11,7 +11,7 @@ import EventsPage from "./Events/events";
 import Gallery from "./Gallery/gallery";
 import GalleryList from "./Gallery/galleryList";
 import LeaderBoardPage from "./LeaderBoard/LeaderBoardPage";
-// import ProjectInfo from "./OurProjects/ProjectInfo";
+import ProjectInfo from "./OurProjects/ProjectInfo";
 import Projects from "./OurProjects/Projects";
 import OurTeam from "./OurTeam/OurTeam";
 import Countdown from "./common/Countdown/Countdown";
@@ -100,18 +100,18 @@ const routes: RouteObject[] = [
       </TransitionOverlay>
     ),
   },
-  // {
-  //   path: 'projects/:name',
-  //   element: (
-  //     <TransitionOverlay key={"our-projects"} msg="Our Project">
-  //       <div>
-  //         <Navbar time={2.5} />
-  //         <DotCursor />
-  //         <ProjectInfo />
-  //       </div>
-  //     </TransitionOverlay>
-  //   )
-  // },
+  {
+    path: 'projects/:name',
+    element: (
+      <TransitionOverlay key={"our-project"} msg="Our Project">
+        <div>
+          <Navbar time={2.5} />
+          <DotCursor />
+          <ProjectInfo />
+        </div>
+      </TransitionOverlay>
+    )
+  },
   {
     path: "gallery/:id",
     element: (

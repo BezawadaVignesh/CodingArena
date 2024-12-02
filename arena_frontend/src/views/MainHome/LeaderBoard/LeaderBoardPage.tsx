@@ -83,9 +83,9 @@ const headersMap = {
   ],
 
   leetcodeHeaders: [
-    {
-      "name": <PlatformImageDiv src={"/leetcode.png"} />,
-      "value": [
+    // {
+      // "name": <PlatformImageDiv src={"/leetcode.png"} />,
+      // "value": [
         {
           "name": "Rank",
         },
@@ -106,13 +106,13 @@ const headersMap = {
         {
           "name": "Rating",
         },
-      ]
-    }
+      // ]
+    // }
   ],
   codechefHeaders: [
-    {
-      "name": <PlatformImageDiv src={"/codechef.png"} />,
-      "value": [
+    // {
+      // "name": <PlatformImageDiv src={"/leetcode.png"} />,
+      // "value": [
         {
           "name": "Rank",
         },
@@ -120,7 +120,7 @@ const headersMap = {
           "name": "Name",
         },
         // {
-        //   "name": <PlatformImageDiv src={"/codechef.png"} />,
+        //   "name": <PlatformImageDiv src={"/leetcode.png"} />,
         //   "value": [
         //     {
         //       "name": "Problems Solved",
@@ -133,13 +133,13 @@ const headersMap = {
         {
           "name": "Rating",
         },
-      ]
-    }
+      // ]
+    // }
   ],
   codeforcesHeaders: [
-    {
-      "name": <PlatformImageDiv src={"/codeforces.png"} />,
-      "value": [
+    // {
+      // "name": <PlatformImageDiv src={"/leetcode.png"} />,
+      // "value": [
         {
           "name": "Rank",
         },
@@ -147,7 +147,7 @@ const headersMap = {
           "name": "Name",
         },
         // {
-        //   "name": <PlatformImageDiv src={"/codeforces.png"} />,
+        //   "name": <PlatformImageDiv src={"/leetcode.png"} />,
         //   "value": [
         //     {
         //       "name": "Problems Solved",
@@ -160,8 +160,8 @@ const headersMap = {
         {
           "name": "Rating",
         },
-      ]
-    }
+      // ]
+    // }
   ]
 
 }
@@ -180,7 +180,7 @@ const LeaderBoardPage = () => {
         setRows(data);
         
       } catch(error) {
-        alert?.showAlert("", "error")
+        alert?.showAlert("Couldn't Fetch Data", "error")
       } finally {
         setLoading(false)
       }
@@ -197,9 +197,9 @@ const LeaderBoardPage = () => {
           width: "100%",
           // gap: 20,
         }}>
-          <div style={{ fontWeight: 700, fontSize: "2em", display: "flex", justifyContent: "justify", alignItems: "center", paddingInline: 20 }}>
+          <h1 style={{ fontSize: "1.9em", display: "flex", justifyContent: "justify", alignItems: "center", paddingInline: 20 }}>
             GCET Competitive Programming Standings
-          </div>
+          </h1>
 
           <div style={{ display: "flex", justifyContent: "flex-end", width: "100%", marginTop: 50, paddingInline: 10 }}>
             <Select
@@ -219,7 +219,6 @@ const LeaderBoardPage = () => {
               labelId="demo-simple-select-helper-label"
               id="demo-simple-select-helper"
               value={platform}
-              label="Platform"
               onChange={(e) => { setPlatform(e.target.value); }}
             >
               <MenuItem value={"all"}>All</MenuItem>

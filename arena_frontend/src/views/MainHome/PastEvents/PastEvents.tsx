@@ -9,7 +9,7 @@ const movieData = [
     budget: 0,
     resoursePerson: ["D Soujanya",],
     description:
-      "Code Create Connect, organized by GCET_Coding_Club on December 1st, saw 200+ participants. Led by Sowjanya (CSE, Final Year), the session covered DSA, career tips, LinkedIn/X profile building, and global tech opportunities, with support from Principal Dr. Udaya Kumar Susarla and faculty coordinators.s",
+      "Code Create Connect, organized by GCET_Coding_Club on December 1st, saw 200+ participants. Led by Sowjanya (CSE, Final Year), the session covered DSA, career tips, LinkedIn/X profile building, and global tech opportunities, with support from Principal Dr. Udaya Kumar Susarla and faculty coordinators.",
     imageUrl:
       "/codecreate.png",
 

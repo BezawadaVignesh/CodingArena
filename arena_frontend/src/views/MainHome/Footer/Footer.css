@@ -1,5 +1,5 @@
 .footer {
-    background-color: #1f2937; /* bg-gray-900 */
+    background-color: black; /* bg-gray-900 */
     color: #ffffff; /* text-white */
   }
   
@@ -75,7 +75,7 @@ width: 100%;
   }
   
   .social-icons a:hover {
-    color: #6366f1; /* hover:text-indigo-400 */
+    /* color: #6366f1; hover:text-indigo-400 */
     transform: scale(1.5); /* Slightly enlarges the icon */
     transition: transform 0.3s, color 0.3s; /* Smooth transition */
   }
@@ -111,7 +111,7 @@ width: 100%;
   }
   
   .link-item:hover {
-    color: #6366f1; /* hover:text-indigo-400 */
+    color: #fff; /* hover:text-indigo-400 */
   }
   
   .contact-list {
