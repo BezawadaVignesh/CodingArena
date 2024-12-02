@@ -6,9 +6,7 @@ import Announcements from "./Anouncements/Anouncements";
 import ClubHome from "./ClubHome";
 import ClubName from "./ClubName/ClubName";
 import ContactUs from "./ContactUs/ContactUs";
-import ContestAnounce from "./ContestAnnouncement/contestAnounce";
 import DotCursor from "./DotCursor/DotCursor";
-import EventPage from "./Events/eventDesc";
 import EventsPage from "./Events/events";
 import Gallery from "./Gallery/gallery";
 import GalleryList from "./Gallery/galleryList";
@@ -66,18 +64,18 @@ const routes: RouteObject[] = [
       </TransitionOverlay>
     ),
   },
-  {
-    path: "contest",
-    element: (
-      <TransitionOverlay key={"contest"} msg="contest">
-        <div>
-          <Navbar time={2.5} />
-          <DotCursor />
-          <ContestAnounce />
-        </div>
-      </TransitionOverlay>
-    ),
-  },
+  // {
+  //   path: "contest",
+  //   element: (
+  //     <TransitionOverlay key={"contest"} msg="contest">
+  //       <div>
+  //         <Navbar time={2.5} />
+  //         <DotCursor />
+  //         <ContestAnounce />
+  //       </div>
+  //     </TransitionOverlay>
+  //   ),
+  // },
   {
     path: "gallery",
     element: (
@@ -142,24 +140,25 @@ const routes: RouteObject[] = [
     path: "events",
     element: (
       <TransitionOverlay msg="Events">
-        <div>
+        <div  style={{ marginTop: '50px'}}>
         <DotCursor />
+        <Navbar time={1} />
           <EventsPage />
         </div>
       </TransitionOverlay>
     ),
   },
-  {
-    path: "event/:id",
-    element: (
-      <TransitionOverlay msg="Event">
-        <div>
-        <DotCursor />
-          <EventPage />
-        </div>
-      </TransitionOverlay>
-    ),
-  },
+  // {
+  //   path: "event/:id",
+  //   element: (
+  //     <TransitionOverlay msg="Event">
+  //       <div>
+  //       <DotCursor />
+  //         <EventPage />
+  //       </div>
+  //     </TransitionOverlay>
+  //   ),
+  // },
   {
     path: "standings",
     element: (

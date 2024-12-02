@@ -9,32 +9,32 @@ const movieData = [
     budget: 0,
     resoursePerson: ["D Soujanya",],
     description:
-      "A skilled thief is offered a chance to have his criminal history erased if he can implant another person's idea into a target's subconscious.",
+      "Code Create Connect, organized by GCET_Coding_Club on December 1st, saw 200+ participants. Led by Sowjanya (CSE, Final Year), the session covered DSA, career tips, LinkedIn/X profile building, and global tech opportunities, with support from Principal Dr. Udaya Kumar Susarla and faculty coordinators.s",
     imageUrl:
-      "codecreate.png",
+      "/codecreate.png",
 
   },
   {
     title: "Code Sprint 1.0",
     date: " August 1st, 2023",
-    noOfParticipants: 200,
+    noOfParticipants: 298,
     budget: 0,
-    resoursePerson: ["D Soujanya",],
+    resoursePerson: ["Keerthi.M","Ramanjaneyulu"],
     description:
-      "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.",
+      "Code Sprint 1.0, organized by GCET_Coding_Club in July-August 2023, featured two rounds with 300+ participants. The first online round, held on July 20, 2023, included 30 MCQs, and 80 students with scores above 60% advanced to the second offline round on August 1, 2023, at GCET’s Block-V labs.",
     imageUrl:
-      "codeSprint1.0.jpeg",
+      "/codeSprint1.0.jpeg",
   },
   {
     title: "Code Sprint 2.0",
-    date: " August 1st, 2023",
-    noOfParticipants: 200,
+    date: " June 19, 2024",
+    noOfParticipants: 181,
     budget: 0,
-    resoursePerson: ["D Soujanya",],
+    resoursePerson: ["Ramanjaneyulu","Keerthi.M"],
     description:
-      "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.",
+      "CODE SPRINT 2.0 was a two-round coding contest held at GCET, with an online round on June 19, 2024, and a final offline round on June 21, 2024. Hosted on the Smart Interviews platform, it featured diverse problem sets and offered cash prizes for top performers.",
     imageUrl:
-      "codeSprint2.0.jpg",
+      "/codeSprint2.0.jpg",
   },
 ];
 
@@ -140,12 +140,12 @@ const PastEvents = () => {
               {/* <p style={{  fontStyle: "italic" }}>
               <strong>Year:</strong> {movie.date}
             </p> */}
-              <p style={{ fontStyle: "italic" }}>
+              {/* <p style={{ fontStyle: "italic" }}>
                 <strong>Genre:</strong> {movie.resoursePerson.join(", ")}
               </p>
               <p style={{ fontStyle: "italic" }}>
                 <strong>Director:</strong> {movie.budget}
-              </p>
+              </p> */}
               <p>{movie.description}</p>
               {/* <Dialog
                 open={true}

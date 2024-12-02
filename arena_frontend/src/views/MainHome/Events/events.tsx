@@ -1,15 +1,15 @@
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import {
-    Box,
-    Button,
-    Card,
-    CardContent,
-    CardMedia,
-    Typography,
+  Box,
+  Button,
+  Card,
+  CardContent,
+  CardMedia,
+  Typography,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import Navbar from "../../../components/Navbar/Navbar";
+import { useState } from "react";
+import { StyledTab, StyledTabs } from "../../AdminCodeRunner";
 
 interface Event {
   id: number;
@@ -21,7 +21,7 @@ interface Event {
   isPresent: boolean;
 }
 const EventCard: React.FC<Event> = ({
-  id,
+  id:_id,
   image,
   title,
   subtitle,
@@ -29,7 +29,7 @@ const EventCard: React.FC<Event> = ({
   location,
   isPresent,
 }) => {
-  const navigate = useNavigate();
+ 
   return (
     <Card
       sx={{
@@ -39,7 +39,7 @@ const EventCard: React.FC<Event> = ({
         borderRadius: 2,
         flexDirection: { xs: "column", sm: "row" },
       }}
-      onClick={() => navigate(`/home/event/${id}`)}
+      // onClick={() => navigate(`/home/event/${id}`)}
     >
       <CardMedia
         component="img"
@@ -113,75 +113,89 @@ const EventCard: React.FC<Event> = ({
   );
 };
 const EventsPage: React.FC = () => {
-  const presentEvents = [
-    {
-      id: 1,
-      image: "/codeSprint1.0.jpeg",
-      title: "Present Event 1",
-      subtitle: "A great event to attend",
-      date: "Dec 15, 2024",
-      location: "New York",
-      isPresent: true,
-    },
-    {
-      id: 2,
-      image: "/codeSprint1.0.jpeg",
-      title: "Present Event 2",
-      subtitle: "Learn and explore",
-      date: "Dec 18, 2024",
-      location: "Chicago",
-      isPresent: true,
-    },
-  ];
 
   const pastEvents = [
     {
       id: 3,
       image: "/codeSprint1.0.jpeg",
-      title: "Past Event 1",
-      subtitle: "A memorable event",
-      date: "Oct 10, 2024",
-      location: "San Francisco",
+      title: "Dinger Round",
+      subtitle: "Coding",
+      date: "Aug 8th, 2022",
+      location: "Geethanjali College of Engineering and Technology,Cheeryal",
       isPresent: false,
     },
     {
       id: 4,
       image: "/codeSprint1.0.jpeg",
-      title: "Past Event 2",
-      subtitle: "Insightful discussions",
-      date: "Nov 12, 2024",
-      location: "Los Angeles",
+      title: "Logo Design Competition",
+      subtitle: "Design Competition",
+      date: "Aug 25th, 2022",
+      location: "Geethanjali College of Engineering and Technology,Cheeryal",
+      isPresent: false,
+    },
+    {
+      id: 5,
+      image: "/codeSprint1.0.jpeg",
+      title: "Code Sprint 1.0",
+      subtitle: "Code Sprint 1.0, organized by GCET_Coding_Club",
+      date: "Aug 1st, 2023",
+      location: "Geethanjali College of Engineering and Technology,Cheeryal",
       isPresent: false,
     },
   ];
+  const [tab, setTab] = useState(1);
+  // const [loading,setLoading] = useState(true);
+  
   return (
-    <>
-      <Navbar time={1} />
-      <Box p={3} sx={{ margin: "auto", maxWidth: 1200, marginTop: "49px" }}>
+    <div style={{ "padding": "1rem",
+      "maxWidth": "1000px",
+      "margin":" 0 auto",}}>
         <Typography
           variant="h4"
-          sx={{ fontWeight: "bold", mb: 2, textAlign: "center" }}
+          sx={{ fontWeight: "800", mb: 2, textAlign: "center" }}
         >
-          Present Events
+          Events
         </Typography>
-        {presentEvents.map((event, index) => (
-          <EventCard key={index} {...event} />
-        ))}
+      <Box
+          sx={{
+            // width: "80%",
+            borderBottom: 1,
+            
+            // margin: "100px auto",
+            borderColor: "divider",
+            // marginLeft:"120px"
+          }}
+        >
+          <StyledTabs
+            onChange={(_e, t) => setTab(t)}
+            aria-label="Problem and submissions lables"
+            value={tab}
+            variant="fullWidth"
+          >
+            <StyledTab label="OnGoing" value={1} />
+            <StyledTab label="Past Events" value={2} />
+          </StyledTabs>
+        </Box>
+
+      {
+      tab===1 &&<Box p={3} sx={{ margin: "auto", display:"grid",placeItems:"center",maxWidth: 1200,}}>
+        {
+        // presentEvents.map((event, index) => (
+        //   <EventCard key={index} {...event} />
+        // ))
+        }
+        <p>No Events</p>
         {/* <Divider sx={{ my: 4 }} /> */}
       </Box>
-      <Box p={3} sx={{ margin: "auto", maxWidth: 1200 }}>
-        <Typography
-          variant="h4"
-          sx={{ fontWeight: "bold", mb: 2, textAlign: "center" }}
-        >
-          Past Events
-        </Typography>
+      }
+      {tab===2 &&<Box p={3} sx={{ margin: "auto", maxWidth: 1200 }}>
+        
         {pastEvents.map((event, index) => (
           <EventCard key={index} {...event} />
         ))}
         {/* <Divider sx={{ my: 4 }} /> */}
-      </Box>
-    </>
+      </Box>}
+    </div>
   );
 };
 

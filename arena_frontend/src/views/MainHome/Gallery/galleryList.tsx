@@ -39,27 +39,27 @@ const GalleryList: React.FC = () => {
           date: 'July 20th & August 1st 2023',
           imageCount:8
         },
-        {
-          id: 4,
-          imageUrl: 'https://as2.ftcdn.net/v2/jpg/05/62/02/41/1000_F_562024161_tGM4lFlnO0OczLYHFFuNNdMUTG9ekHxb.jpg',
-          name: 'Event 1',
-          date: 'JAN 1,2024',
-          imageCount:50
-        },
-        {
-          id: 5,
-          imageUrl: 'https://i.pinimg.com/564x/0d/7e/82/0d7e82b92410eaa678875baeb5f89c48.jpg',
-          name: 'Event 2',
-          date: 'JAN 1,2024',
-          imageCount:50
-        },
-        {
-          id: 6,
-          imageUrl: 'https://i.pinimg.com/474x/e1/1a/c0/e11ac0f5655e23c127b0781d5cd0fc87.jpg',
-          name: 'Event 3',
-          date: 'JAN 1,2024',
-          imageCount:50
-        },
+        // {
+        //   id: 4,
+        //   imageUrl: 'https://as2.ftcdn.net/v2/jpg/05/62/02/41/1000_F_562024161_tGM4lFlnO0OczLYHFFuNNdMUTG9ekHxb.jpg',
+        //   name: 'Event 1',
+        //   date: 'JAN 1,2024',
+        //   imageCount:50
+        // },
+        // {
+        //   id: 5,
+        //   imageUrl: 'https://i.pinimg.com/564x/0d/7e/82/0d7e82b92410eaa678875baeb5f89c48.jpg',
+        //   name: 'Event 2',
+        //   date: 'JAN 1,2024',
+        //   imageCount:50
+        // },
+        // {
+        //   id: 6,
+        //   imageUrl: 'https://i.pinimg.com/474x/e1/1a/c0/e11ac0f5655e23c127b0781d5cd0fc87.jpg',
+        //   name: 'Event 3',
+        //   date: 'JAN 1,2024',
+        //   imageCount:50
+        // },
       ];
   const navigate = useNavigate();
  

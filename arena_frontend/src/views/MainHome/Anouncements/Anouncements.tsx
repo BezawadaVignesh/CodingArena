@@ -134,36 +134,6 @@ const Announcements = () => {
           >
             <StyledTab label="Internal" value={1} />
             <StyledTab label="External" value={2} />
-            {/* <StyledTab
-          label={
-            <span style={{ position: "relative" }}>
-              Details
-              { (
-                <span
-                  style={{
-                    position: "absolute",
-                    top: "-2px",
-                    right: "-25px",
-                    width: "20px",
-                    height: "20px",
-                    borderRadius: "50%",
-                    backgroundColor: "red",  // You can change the color
-                    color: "white",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    fontSize: "12px",  // Adjust font size as needed
-                    fontWeight: "bold",
-                  }}
-                >
-                  2
-                </span>
-              )}
-            </span>
-          }
-          value={3}
-        /> */}
-            {/* <StyledTab label="Advance" value={3} /> */}
           </StyledTabs>
         </Box>
         <p className="subtitle">Stay updated with the latest news and events</p>
