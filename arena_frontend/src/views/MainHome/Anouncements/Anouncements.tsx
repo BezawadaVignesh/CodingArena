@@ -80,7 +80,7 @@ const Announcements = () => {
     },
   ];
   const [tab, setTab] = useState(1);
-  const [contests, setContests] = useState<Contest[]>(data);
+  const [contests, setContests] = useState<Contest[]>([]);
   const [loading, setLoading] = useState(true);
   const alert = useContext(AlertContext);
   const externalContests = useRef<Contest[]>();
@@ -105,7 +105,7 @@ const Announcements = () => {
           setLoading(false);
         }
       } else {
-        setContests(presentEvents);
+        setContests([]);
         setLoading(false);
       }
     })();
@@ -154,9 +154,20 @@ const Announcements = () => {
             </div>
           </Box>
         )}
-        {!loading &&
+        {!loading && tab == 1 &&
+         (
+          <Box p={3} sx={{ margin: "auto", display:"grid",placeItems:"center",maxWidth: 1200,}}>
+          {
+        
+          }
+          <p>No Announcements Yet</p>
+          {/* <Divider sx={{ my: 4 }} /> */}
+        </Box>
+        )}
+        {!loading && 
           contests.map((contest, index) => {
             const { date, link, ...data } = contest;
+
             return (
               <AnnouncementCard
                 time={dayjs(date).format("hh:MM A")}

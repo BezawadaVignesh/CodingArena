@@ -37,21 +37,30 @@ const projects: { [key: string]: any; } = {
       vid: "/codingarena.mp4",
     },
     {
-      vid: "/pro.png",
-      desc: "Some Matter",
+      name: "Coding Arena Homepage",
+      vid: "/codingarena1.jpg",
+      desc: "Homepage of the Coding Arena platform with an intuitive and clean interface, showcasing its purpose of hands-on learning and competitive coding.",
     },
     {
-      vid: "/pro.png",
-      desc: "Some Matter",
+      name: " Problem-Solving Section",
+      vid: "/codingarenapro.jpg",
+      desc: "The interface which allows users to solve problem in the platform.",
     },
     {
-      vid: "/pro.png",
-      desc: "Some Matter",
+      name: "Current Contests",
+      vid: "/codingarena4.jpg",
+      desc: "This page displays the current contests which are being conducted in the platform.",
     },
     {
-      vid: "/pro.png",
-      desc: "Some Matter",
+      name: "Manage Users",
+      vid: "/codingarena5.jpg",
+      desc: "The page which allows to manage users who are logged in the platform.",
     },
+    {
+      name: "User Dashboard Overview",
+      vid: "/codingarena6.jpg",
+      desc: "Features a user-friendly dashboard for tracking progress, viewing solved problems, and managing ongoing challenges seamlessly.",
+    }
   ],
   "TLPFeedbackApplication": [
     {
@@ -60,21 +69,23 @@ const projects: { [key: string]: any; } = {
       vid: "/tlp.mp4",
     },
     {
-      vid: "/pro.png",
-      desc: "Some Matter",
+      name: "Student Feedback View",
+      vid: "/tlp1.jpg",
+      desc: "Student view of feedback page of students' current semester",
     },
     {
-      vid: "/pro.png",
-      desc: "Some Matter",
+      name: "Student Course-wise Feedback",
+      vid: "/tlp2.jpg",
+      desc: "Student giving feedback for each course",
     },
-    {
-      vid: "/pro.png",
-      desc: "Some Matter",
-    },
-    {
-      vid: "/pro.png",
-      desc: "Some Matter",
-    },
+    // {
+    //   vid: "/pro.png",
+    //   desc: "Some Matter",
+    // },
+    // {
+    //   vid: "/pro.png",
+    //   desc: "Some Matter",
+    // },
   ],
 }
 
@@ -195,6 +206,26 @@ const developersData: { [key: string]: any; } = {
       mail: "21r11a05f8@gcet.edu.in",
       img: "/Vignesh2.png",
       github: "https://github.com/BezawadaVignesh",
+    },
+    {
+      name: "R. Harinath Reddy",
+      // desig: "Coordinator",
+      fbook: "",
+      x: "",
+      linkedIn: "",
+      mail: "21r11a05k0@gcet.edu.in",
+      img: "/harinath.jpg",
+      github: "https://github.com/HarinathReddyR",
+    },
+    {
+      name: "Y. Rahul",
+      // desig: "Coordinator",
+      fbook: "",
+      x: "",
+      linkedIn: "https://www.linkedin.com/in/rahul-bablu-a718b9273",
+      mail: "21r11a05l4@gcet.edu.in",
+      img: "/rahul.jpg",
+      github: "https://github.com/rahul-bablu",
     },
   ]
 }
