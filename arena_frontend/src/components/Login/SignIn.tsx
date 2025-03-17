@@ -1,15 +1,15 @@
 import {
-  Button,
   Dialog,
   DialogContent,
   DialogTitle,
   TextField,
-  useTheme,
+  useTheme
 } from "@mui/material";
 import React, { useContext, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useAuth } from "../Auth/AuthProvider";
 import { AlertContext } from "../common/AlertProvider";
+import CartoonButton from "../common/CButtons";
 import style from "./styles.module.css";
 
 function SignInForm() {
@@ -76,28 +76,31 @@ function SignInForm() {
           value={state.email}
           onChange={handleChange}
         /> */}
-        <input
-          className={style["input"]}
-          style={{background: theam.palette.secondary.main, color: theam.palette.text.primary}}
+        <TextField
+          size="small"
+          sx={{marginBlock: 1}}
           type="text"
           name="username"
-          placeholder="Username"
+          label="Username"
           value={state.username}
           onChange={handleChange}
         />
-        <input
-          className={style["input"]}
-          style={{background: theam.palette.secondary.main, color: theam.palette.text.primary}}
+        <TextField
+          size="small"
+          sx={{marginBlock: 1}}
           type="password"
           name="password"
-          placeholder="Password"
+          label="Password"
           value={state.password}
           onChange={handleChange}
         />
-        <div className={style.a} style={{color: theam.palette.primary.main}} onClick={() => setOpen(true)}>
+        <div
+           
+        className={style.a} style={{color: theam.palette.primary.main, cursor: "pointer"}} onClick={() => setOpen(true)}>
           Forgot your password?
         </div>
-        <button className={style.button}>Sign In</button>
+        <CartoonButton >Sign In</CartoonButton>
+        {/* <button className={style.button}>Sign In</button> */}
         <Dialog
           open={open}
           // TransitionComponent={Transition}
@@ -109,6 +112,7 @@ function SignInForm() {
           </DialogTitle>
           <DialogContent sx={{ minWidth: "400px" }}>
             <TextField
+              size="small"
               label="Username/Email"
               defaultValue={uore}
               onChange={(e) => setUorE(e.target.value)}
@@ -116,8 +120,7 @@ function SignInForm() {
               fullWidth
             ></TextField>
             <div style={{ width: "max-content", margin: "auto" }}>
-              <Button
-                variant="contained"
+              <CartoonButton
                 onClick={() => {
                   if (uore == "")
                     return alert?.showAlert(
@@ -128,7 +131,7 @@ function SignInForm() {
                 }}
               >
                 Send new password
-              </Button>
+              </CartoonButton>
             </div>
           </DialogContent>
           {/* <DialogActions>

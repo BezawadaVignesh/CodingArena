@@ -173,15 +173,32 @@ const router = createBrowserRouter([
 const lightTheme = createTheme({
   palette: {
     mode: "light",
-
     secondary: {
-      main: "#f3f3f3", // Grey color
+      main: "#f3f3f3",
     },
     background: {
       default: "#f5f5f5", // Light grey background
     },
   },
+  typography: {
+    fontFamily: `"JetBrains Mono", Poppins, "Roboto", "Helvetica", "Arial", sans-serif`,
+    // fontSize: 2,
+  },
   components: {
+    MuiSelect: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "#ffff",
+        },
+      },
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "#ffff",
+        },
+      },
+    },
     MuiButton: {
       styleOverrides: {
         containedPrimary: {
@@ -225,8 +242,26 @@ const darkTheme = createTheme({
       default: "#252525", // Dark grey background
     },
   },
+  typography: {
+    fontFamily: `"JetBrains Mono", Poppins, "Roboto", "Helvetica", "Arial", sans-serif`,
+    // fontSize: '1rem',
+  },
 
   components: {
+    MuiSelect: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "#333333",
+        },
+      },
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "#333333",
+        },
+      },
+    },
     MuiCard: {
       styleOverrides: {
         root: {
@@ -253,6 +288,16 @@ const darkTheme = createTheme({
     },
   },
 });
+
+// darkTheme.typography.h3 = {
+//   fontSize: '1.2rem',
+//   '@media (min-width:600px)': {
+//     fontSize: '1.5rem',
+//   },
+//   [darkTheme.breakpoints.up('md')]: {
+//     fontSize: '2rem',
+//   },
+// };
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,

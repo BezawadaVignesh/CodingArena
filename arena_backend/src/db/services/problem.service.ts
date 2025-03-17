@@ -27,16 +27,16 @@ export const getAllFromContest = async (id: number) => {
 
     let contest = await Contest.findByPk(id);
     if (!contest) throw "Invalid contest id provided";
-    return await contest.getProblems({ attributes: ['id', 'title', 'maxscore'] });
+    return await contest.getProblems({ attributes: ['id', 'title', 'maxscore', 'difficulty', 'tags'] });
 }
 
 export const getAllFromContestForUser = async (id:number, userId?: string) => {
     const problems = await getAllFromContest(id);
+     
     return await Promise.all(problems.map(async (p, index) => {
-        console.log(p.maxscore);
         // TODO: Compute solved flag
-        return { id: p.id, title: p.title, maxScore: p.maxscore, tried: await p.countUsers(), attempted: (userId ? await p.hasUser(parseInt(userId as string)): false), solved: false }
-    }))
+        return { id: p.id, title: p.title, maxScore: p.maxscore, tried: await p.countUsers(), attempted: (userId ? await p.hasUser(parseInt(userId as string)): false), solved: false, difficulty: p.difficulty, tags: p.tags }
+    }));
 }
 
 export const getAllFromContestIncludeIO = async (id: number) => {

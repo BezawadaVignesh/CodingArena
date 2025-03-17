@@ -13,7 +13,7 @@ import {
   TextField,
   Typography,
   useMediaQuery,
-  useTheme,
+  useTheme
 } from "@mui/material";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
@@ -23,11 +23,14 @@ import Navbar from "../components/common/Navbar";
 
 import { Create } from "@mui/icons-material";
 import { TransitionProps } from "@mui/material/transitions";
+import { DataGrid } from "@mui/x-data-grid";
 import Axios from "axios";
 import dayjs from "dayjs";
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { FormEvent, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../components/Auth/AuthProvider";
+import { AlertContext } from "../components/common/AlertProvider";
+import CartoonButton from "../components/common/CButtons";
 
 const ContestHelper = ({ handleClose }: { handleClose: () => void }) => {
   type State = "manual" | "inactive" | "active" | "end" | "manualactive";
@@ -197,8 +200,9 @@ const EditContests = () => {
   const [qs, setQs] = useState<any>([
     { title: "This should not appier", id: 0 },
   ]);
-  const { user } = useAuth()!;
+  const { userObj } = useAuth()!;
   const [reload, setReload] = useState(false);
+  const alert = useContext(AlertContext);
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -225,8 +229,66 @@ const EditContests = () => {
         display={"flex"}
         // alignItems="center"/
       >
-        <div style={{ width: "100%" }}>
-          {
+        <div style={{ width: "80%", margin: 'auto' }}>
+        {userObj?.role == "admin" || true ? (
+          <div style={{ marginLeft: "auto", marginRight: 0, width: 100, marginBlock: '10px' }}>
+            <CreateContest reload={reload} setReload={setReload} />
+          </div>
+        ) : (
+          <></>
+        )}
+          <Card
+          sx={{boxShadow: 7,}}
+          >
+          <DataGrid
+                    getRowId={(row: any) => row.id}
+                    columns={[
+                      { field: "title", headerName: "Contest name", flex: 1 },
+                      { field: "state", headerName: "State", flex: 1 },
+                      { field: "startTime", headerName: "Start Time", flex: 1, },
+                      { field: "endTime", headerName: "End Time", flex: 1, 
+                        renderCell: (params) => {
+                          if(!params.row.state?.startsWith("manual")) {
+                            return params.row.endTime;
+                          } else {
+                            return "-"
+                          }
+                        } 
+                      },
+                      {field: "id", headerName: "Actions", flex: 1,
+                        renderCell: (parms) => {
+                          return <div style={{minWidth: '200px'}}>
+                          <CartoonButton
+                          customStyles={{padding: '9px 12px', width: 'min(80px)'}}
+                            onClick={() => navigate(`/admin/problems/${parms.row.id}`)}
+                            variant="primary"
+                          >
+                            Edit
+                          </CartoonButton>
+                          <CartoonButton
+                            customStyles={{ marginInline: 2, padding: '9px 12px', width: 'min(80px)' }}
+                            variant="danger"
+                            onClick={() => {
+                              alert?.showAlert("Can't delete current contest (ask dev's)", "error")
+                            }}
+                          >
+                            Delete
+                          </CartoonButton>
+                        </div>
+                        }
+                       },
+                      
+                    ]}
+                    initialState={{ pagination: { paginationModel: { pageSize: 5 } } }}
+                    rows={qs}
+                    disableRowSelectionOnClick
+                    pageSizeOptions={qs.length == 0 ? [0] : [5, 10, 15]}
+                    autoHeight
+                    
+                  />
+
+                  </Card>
+          {/* {
             qs.map(
               ({ title, id }: { title: string; id: number }, index: number) => (
                 <Card
@@ -253,13 +315,7 @@ const EditContests = () => {
                       <Typography sx={{ paddingBottom: 1 }}>
                         {index + 1}. {title} {"\n"}
                       </Typography>
-                      {/* <Typography fontSize={11}>
-                        This is a short desc if needed
-                      </Typography> */}
                     </div>
-                    {/* <div>
-                      {registred? <Button size="small" variant="outlined" disabled>Registered..</Button>:<Button size="small" variant="contained" color="success" onClick={handleRegister}>Register</Button>}
-                    </div> */}
                     <div>
                       <Button
                         size="small"
@@ -282,18 +338,12 @@ const EditContests = () => {
                 </Card>
               )
             )
-          }
+          } */}
         </div>
       </Box>
 
       <div style={{ margin: "auto", width: "80%" }}>
-        {user == "user1" || true ? (
-          <div style={{ marginLeft: "auto", marginRight: 0, width: 100 }}>
-            <CreateContest reload={reload} setReload={setReload} />
-          </div>
-        ) : (
-          <></>
-        )}
+        
       </div>
     </div>
   );

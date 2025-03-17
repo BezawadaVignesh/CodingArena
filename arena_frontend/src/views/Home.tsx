@@ -1,17 +1,80 @@
 import {
   Box,
-  Button,
   Card,
   Checkbox,
+  FormControl,
   FormControlLabel,
   Grow,
-  Typography
+  IconButton,
+  InputBase,
+  InputLabel,
+  MenuItem,
+  Select,
+  styled,
+  TextField
 } from "@mui/material";
 import Axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import { SearchIcon, Tags, UsersRound, Zap } from "lucide-react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AlertContext } from "../components/common/AlertProvider";
+import CartoonButton from "../components/common/CButtons";
+import LoadingScreen from "../components/common/LoadingScreen";
 import Navbar from "../components/common/Navbar";
+
+const Text4 = styled("div")(({ theme }) => ({
+  color: theme.palette.text.primary, // Use the primary text color
+  fontFamily: theme.typography.fontFamily,
+  fontSize: "1.1rem",
+  paddingBottom: 1,
+  fontWeight: 700,
+}));
+
+const Text7 = styled("div")(({ theme }) => ({
+  color: theme.palette.text.primary, // Use the primary text color
+  fontSize: "0.8rem",
+  display: "flex",
+  alignItems: "center",
+  fontFamily: theme.typography.fontFamily,
+}));
+
+const TextBasic = styled("div")(({ theme }) => ({
+  color: theme.palette.text.primary, // Use the primary text color
+  fontSize: "0.9rem",
+  fontFamily: theme.typography.fontFamily,
+}));
+
+function getDifficultyStyle(difficulty: string): React.CSSProperties {
+  const baseStyle: React.CSSProperties = {
+    padding: "0.25rem 0.75rem",
+    borderRadius: "9999px",
+    fontSize: "0.875rem",
+    fontWeight: "500",
+  };
+
+  switch (difficulty.toLowerCase()) {
+    case "easy":
+      return {
+        ...baseStyle,
+        backgroundColor: "#D1FAE5",
+        color: "#059669",
+      };
+    case "medium":
+      return {
+        ...baseStyle,
+        backgroundColor: "#FEF3C7",
+        color: "#D97706",
+      };
+    case "hard":
+      return {
+        ...baseStyle,
+        backgroundColor: "#FEE2E2",
+        color: "#DC2626",
+      };
+    default:
+      return baseStyle;
+  }
+}
 
 const Home = () => {
   const [qs, setQs] = useState<any>(null);
@@ -19,23 +82,130 @@ const Home = () => {
   const [notAttempted, setNotAttempted] = useState(false);
   const [showAttempted, setShowAttempted] = useState(false);
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
+  const [search, setSearch] = useState("");
+  const problems = useRef([]);
+
+  useEffect(() => {
+    if(!search) setQs(problems.current);
+    else
+      setQs(problems.current.filter(({title}:{title: string;}) => {
+        return title.toLowerCase().includes(search.toLowerCase());
+      }))
+  }, [search]);
+
   useEffect(() => {
     (async () => {
       try {
         const { data } = await Axios.get(`/api/problem?contestId=1`);
+        problems.current = data;
         setQs(data);
         alert?.showAlert("Welcome Back Coder!", "info");
       } catch (e) {
         alert?.showAlert("Couldn't load questions", "error");
+      } finally {
+        setIsLoading(false);
       }
     })();
   }, []);
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
 
   return (
     <>
       <Navbar />
+
       <Box display={"flex"} flexWrap={"wrap-reverse"}>
         <div style={{ width: "max(60%, 250px)", margin: "auto" }}>
+          <div
+            style={{
+              width: "max-content",
+              margin: "auto",
+              fontSize: "1.5rem",
+              fontWeight: 800,
+              marginBlock: "10px",
+            }}
+          >
+            Practice Problems
+          </div>
+          {/* <div style={{width: '90%', margin: 'auto'}}> */}
+          <Card
+            sx={{
+              width: "90%",
+              margin: "auto",
+              transition: "box-shadow 0.3s ease-in-out",
+              boxShadow: 2,
+              "&:hover": {
+                boxShadow: 6, // Increase shadow on hover
+              },
+            }}
+          >
+            <InputBase
+              sx={{ ml: 1.5, flex: 1, width: "calc(100% - 60px)" }}
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search Problems"
+              inputProps={{ "aria-label": "search a problem" }}
+            />
+            <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
+              <SearchIcon />
+            </IconButton>
+          </Card>
+          <div style={{ width: "90%", margin: "auto" }}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBlock: "12px",
+              }}
+            >
+              <div style={{ width: "max(45%, 250px)" }}>
+                <FormControl
+                  sx={{
+                    width: "100%",
+                    "&:hover": {
+                      border: "none",
+                      boxShadow: 6, // Increase shadow on hover
+                    },
+                  }}
+                >
+                  <InputLabel id="Difficulty-select-label" size="small">
+                    Difficulty
+                  </InputLabel>
+                  <Select
+                    sx={{ width: "100%" }}
+                    labelId="Difficulty-select-label"
+                    id="Difficulty-select"
+                    
+                    label="Difficulty"
+                    // variant="outlined"
+                    // onChange={(e) => setSearch(e.target.value)}
+                    size="small"
+                  >
+                    <MenuItem value={"All"} defaultChecked>
+                      All
+                    </MenuItem>
+                    <MenuItem value={"Easy"}>Easy</MenuItem>
+                    <MenuItem value={"Medium"}>Medium</MenuItem>
+                    <MenuItem value={"Hard"}>Hard</MenuItem>
+                  </Select>
+                </FormControl>
+              </div>
+              <TextField
+                size="small"
+                label="Search by Tags"
+                sx={{
+                  width: "max(45%, 250px)",
+                  "&:hover": {
+                    boxShadow: 6, // Increase shadow on hover
+                  },
+                }}
+              />
+            </div>
+          </div>
+
+          {/* </div> */}
           {qs ? (
             qs
               .filter((obj: any) => {
@@ -53,6 +223,8 @@ const Home = () => {
                     maxScore,
                     tried,
                     attempted,
+                    difficulty,
+                    tags,
                   }: {
                     title: string;
                     id: number;
@@ -60,6 +232,8 @@ const Home = () => {
                     maxScore: number;
                     tried: number;
                     attempted: boolean;
+                    difficulty: string;
+                    tags: string;
                   },
                   index: number
                 ) => {
@@ -67,9 +241,10 @@ const Home = () => {
                     <Grow in={true} timeout={200 * (index + 1)}>
                       <Card
                         onClick={() => {
-                          navigate(`/code/${problemId}`);
+                          // navigate(`/code/${problemId}`);
                         }}
-                        variant="outlined"
+                        // variant="outlined"
+
                         sx={{
                           fontFamily: "sans-serif",
                           margin: "auto",
@@ -82,7 +257,6 @@ const Home = () => {
                         <div
                           style={{
                             display: "flex",
-                            // width: "100%",
                             flexWrap: "wrap",
                             justifyContent: "space-between",
                             alignItems: "center",
@@ -92,16 +266,44 @@ const Home = () => {
                           }}
                         >
                           <div>
-                            <Typography sx={{ fontSize: 16, paddingBottom: 1 }}>
+                            <Text4>
                               {index + 1}. {title} {"\n"}
-                            </Typography>
-                            <div style={{ display: "flex" }}>
-                              <Typography fontSize={12}>
+                              <span style={getDifficultyStyle(difficulty)}>
+                                {difficulty}
+                              </span>
+                            </Text4>
+                            {tags && (
+                              <Text7
+                                style={{
+                                  color: "rgb(136 128 245)",
+                                  marginInline: "20px",
+                                  marginBlock: "5px 10px",
+                                }}
+                              >
+                                <Tags
+                                  width={"1.1rem"}
+                                  style={{ marginRight: "4px" }}
+                                />{" "}
+                                {tags}
+                              </Text7>
+                            )}
+                            <div
+                              style={{ display: "flex", marginBlock: "10px" }}
+                            >
+                              <Text7 style={{ marginInline: "10px" }}>
+                                <Zap
+                                  width={"1.1rem"}
+                                  style={{ marginInline: "4px" }}
+                                />
                                 Max Score: <b>{maxScore}</b>
-                              </Typography>
-                              <Typography fontSize={12} marginInline={"10px"}>
+                              </Text7>
+                              <Text7 style={{ marginInline: "10px" }}>
+                                <UsersRound
+                                  width={"1.1rem"}
+                                  style={{ marginInline: "4px" }}
+                                />{" "}
                                 Users Tried: <b>{tried}</b>
-                              </Typography>
+                              </Text7>
                             </div>
                           </div>
                           <div
@@ -112,8 +314,27 @@ const Home = () => {
                               // width: ''
                             }}
                           >
-                            <Button
-                              sx={{ marginInline: 4 }}
+                            <CartoonButton
+                              onClick={(e) => {
+                                navigate(`/code/${problemId}`);
+                                e.stopPropagation();
+                                e.preventDefault();
+                              }}
+                              variant={!attempted ? "success" : "secondary"}
+                              customStyles={{
+                                marginInline: "2rem",
+                                marginBlock: "10px",
+                                width: "170px",
+                              }}
+                            >
+                              {solved
+                                ? "Solved"
+                                : attempted
+                                ? "Try Again"
+                                : "Solve"}
+                            </CartoonButton>
+                            {/* <Button
+                              sx={{ marginInline: 4, marginBlock: '10px' }}
                               size="large"
                               style={{ width: "170px" }}
                               color="success"
@@ -134,7 +355,7 @@ const Home = () => {
                                 : attempted
                                 ? "Try Again"
                                 : "Solve"}
-                            </Button>
+                            </Button> */}
                           </div>
                         </div>
                         {/* <Divider/> */}
@@ -143,7 +364,8 @@ const Home = () => {
                   );
                 }
               )
-          ) : (<></>
+          ) : (
+            <></>
           )}
         </div>
         <div style={{ margin: "0 auto" }}>
@@ -164,8 +386,7 @@ const Home = () => {
               }}
               onClick={() => navigate("leaderboard/1")}
             >
-              {" "}
-              View Leaderboard
+              <TextBasic>View Leaderboard</TextBasic>
             </Card>
 
             <Card
@@ -176,7 +397,7 @@ const Home = () => {
                 alignItems: "center",
               }}
             >
-              <div>
+              <TextBasic>
                 <FormControlLabel
                   value="not Attempted"
                   control={
@@ -195,9 +416,10 @@ const Home = () => {
                       onChange={(e) => setShowAttempted(e.target.checked)}
                     />
                   }
+                  sx={{ fontSize: 0.9 }}
                   label="Attempted"
                 />
-              </div>
+              </TextBasic>
             </Card>
           </div>
         </div>

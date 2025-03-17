@@ -206,6 +206,7 @@ export const StyledTab = styled(Tab)(({ theme }) => ({
 }));
 
 import dayjs from "dayjs";
+import { CircleCheck, CircleX } from "lucide-react";
 import Confetti from "react-confetti";
 import { useAuth } from "../components/Auth/AuthProvider";
 import BaseBox from "../components/common/BaseBox";
@@ -267,7 +268,19 @@ const Code = () => {
         <DataGrid
           getRowId={(row: any) => row.createdAt}
           columns={[
-            { field: "verdect", headerName: "Verdect", flex: 1 },
+            { field: "verdect", headerName: "Verdect", flex: 1, 
+              renderCell: (params) => {
+                if(params.row.verdect == "Accepted") {
+                  return <div style={{fontWeight: 700, display: 'flex', alignItems: 'center', color: 'rgb(44 195 93)', minWidth: 'max-content'}}>
+                          <CircleCheck width={'1.1rem'} style={{marginInline: '4px'}}/>{params.row.verdect}
+                        </div>
+                } else {
+                  return <div style={{fontWeight: 700, display: 'flex', alignItems: 'center', color: 'rgb(239 71 67)', minWidth: 'max-content'}}>
+                          <CircleX width={'1.1rem'} style={{marginInline: '4px'}}/>{params.row.verdect }
+                        </div>
+                }
+              } 
+            },
             { field: "score", headerName: "Score", flex: 1 },
             {
               field: "createdAt",

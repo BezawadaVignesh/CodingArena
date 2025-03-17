@@ -1,7 +1,8 @@
-import { useTheme } from "@mui/material";
+import { TextField, useTheme } from "@mui/material";
 import Axios from "axios";
 import React, { useContext } from "react";
 import { AlertContext } from "../common/AlertProvider";
+import CartoonButton from "../common/CButtons";
 import style from "./styles.module.css";
 
 function SignUpForm() {
@@ -69,49 +70,49 @@ function SignUpForm() {
           </a>
         </div>
         <span>or use your email for registration</span> */}
-        <input
-        className={style["input"]}
-        style={{background: theam.palette.secondary.main, color: theam.palette.text.primary}}
+        <TextField
+          size="small"
+          sx={{marginBlock: 1}}
           type="text"
           name="name"
           value={state.name}
           onChange={handleChange}
-          placeholder="Name"
+          label="Username"
           required
         />
-        <input
-        className={style["input"]}
-        style={{background: theam.palette.secondary.main, color: theam.palette.text.primary}}
+        <TextField
+          size="small"
+          sx={{marginBlock: 1}}
           type="email"
           name="email"
           value={state.email}
           onChange={handleChange}
-          placeholder="Email"
+          label="Email"
           required
         />
-        <input
-        className={style["input"]}
-        style={{background: theam.palette.secondary.main, color: theam.palette.text.primary}}
+        <TextField
+          size="small"
+          sx={{marginBlock: 1}}
           type="password"
           name="password"
           value={state.password}
           onChange={handleChange}
-          placeholder="Password"
+          label="Password"
           required
 
         />
-        <input
-        className={style["input"]}
-        style={{background: theam.palette.secondary.main, color: theam.palette.text.primary}}
+        <TextField
+          size="small"
+          sx={{marginBlock: 1}}
           type="password"
           name="cpassword"
           value={state.cpassword}
           onChange={handleChange}
-          placeholder="Confirm Password"
+          label="Confirm Password"
           required
 
         />
-        <button className={style["button"]}>Sign Up</button>
+        <CartoonButton> Sign Up </CartoonButton>
       </form>
     </div>
   );

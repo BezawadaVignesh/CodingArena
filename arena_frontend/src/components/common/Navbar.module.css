@@ -43,3 +43,15 @@ nav {
   width : 100%;
 }
 
+.mbutton {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .nav {
+    display: none;
+  }
+  .mbutton {
+    display: block;
+  }
+}

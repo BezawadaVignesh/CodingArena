@@ -8,7 +8,7 @@ export enum UserRole {
   ADMIN = 'admin',
   USER = 'user',
   DEV = 'dev',
-  // CREATER = 'creater',
+  CREATER = 'creater',
 }
 
 class User extends Model {
@@ -27,6 +27,12 @@ class User extends Model {
   declare addProblems: HasManyAddAssociationsMixin<Problem, number>;
   declare addContest: HasManyAddAssociationMixin<Contest, number>;
   declare getContests: HasManyGetAssociationsMixin<Contest>;
+  declare getCreatedContests: HasManyGetAssociationsMixin<Contest>;
+  declare addCreatedContests: HasManyAddAssociationMixin<Contest, number>;
+
+  static associate(models: any) {
+    User.hasMany(models.Contest, { foreignKey: 'createdId', as: 'createdContests' });
+  }
 }
 
 class VerifyToken extends Model {

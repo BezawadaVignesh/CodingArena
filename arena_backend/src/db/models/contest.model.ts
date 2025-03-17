@@ -1,4 +1,7 @@
 import {
+  BelongsToCreateAssociationMixin,
+  BelongsToGetAssociationMixin,
+  BelongsToSetAssociationMixin,
   DataTypes,
   HasManyAddAssociationMixin, HasManyAddAssociationsMixin,
   HasManyCountAssociationsMixin,
@@ -23,11 +26,11 @@ export enum ContestState {
 
 class Contest extends Model {
   declare id: number;
+  declare createdId: number;
   declare state: 'manual' | 'inactive' | 'active' | 'end' | 'manualactive';
   declare startTime: Date;
   declare endTime: Date;
   declare title: string;
-  // declare createrID: number;
 
   declare hasRoom:  HasManyHasAssociationMixin<Room, number>;
   declare getRooms: HasManyGetAssociationsMixin<Room>;
@@ -41,6 +44,15 @@ class Contest extends Model {
   declare addProblems: HasManyAddAssociationsMixin<Problem, number>;
   declare createProblem: HasManyCreateAssociationMixin<Problem, 'contestId'>;
   declare countUsers: HasManyCountAssociationsMixin;
+
+  // Relationship with User (Creator)
+  declare getCreator: BelongsToGetAssociationMixin<User>;
+  declare setCreator: BelongsToSetAssociationMixin<User, number>;
+  declare createCreator: BelongsToCreateAssociationMixin<User>;
+
+  static associate(models: any) {
+    Contest.belongsTo(models.User, { foreignKey: 'createdId', as: 'creator' });
+  }
 }
 
 Contest.init(
@@ -55,9 +67,9 @@ Contest.init(
       allowNull: false,
       unique: true,
     },
-    // createrID: {
-    //   type: DataTypes.INTEGER.UNSIGNED,
-    // },
+    createdId: {
+      type: DataTypes.INTEGER.UNSIGNED,
+    },
     state: {
       type: DataTypes.ENUM(...Object.values(ContestState)),
       allowNull: false,

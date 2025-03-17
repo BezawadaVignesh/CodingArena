@@ -1,5 +1,6 @@
 import { useTheme } from "@mui/material";
 import { useState } from "react";
+import CartoonButton from "../common/CButtons";
 import Navbar from "../common/Navbar";
 import SignInForm from "./SignIn";
 import SignUpForm from "./SignUp";
@@ -30,24 +31,20 @@ export default function Login() {
               <p className={style.p} style={{color: theam.palette.background.default}}>
                 To keep connected with us please login with your personal info
               </p>
-              <button
-                className={"ghost " + style.button}
-                id="signIn"
+              <CartoonButton
                 onClick={() => handleOnClick("signIn")}
               >
                 Sign In
-              </button>
+              </CartoonButton>
             </div>
             <div className={style["overlay-panel"]+  " " + style["overlay-right"]}>
               <h1 className={style["h1"]} style={{color: theam.palette.background.default}}>Hello, Coder!</h1>
               <p className={style.p} style={{color: theam.palette.background.default}}>Enter your personal details and start journey with us</p>
-              <button
-                className={"ghost " + style.button}
-                id="signUp"
+              <CartoonButton
                 onClick={() => handleOnClick("signUp")}
               >
                 Sign Up
-              </button>
+              </CartoonButton>
             </div>
           </div>
         </div>

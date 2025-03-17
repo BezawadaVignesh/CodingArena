@@ -1,13 +1,89 @@
 import { Logout } from "@mui/icons-material";
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
-import { Avatar, Box, Button, Divider, ListItemIcon, Menu, MenuItem, styled } from "@mui/material";
-import { useState } from "react";
+import CloseIcon from '@mui/icons-material/Close';
+import HomeIcon from '@mui/icons-material/Home';
+import MenuIcon from '@mui/icons-material/Menu';
+import { Avatar, Box, Button, Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Menu, MenuItem, styled } from "@mui/material";
+import { useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../Auth/AuthProvider";
 import style from "./Navbar.module.css";
 
 // import Logo from '../../../public/plogo_for_cc.svg';
+import { motion } from "framer-motion";
 import './Navbar.module.css';
+
+const pageData = [
+  ["Problems", <HomeIcon />, "/",],
+  ["Contests", <HomeIcon />, "/contests",],
+  ["Room", <HomeIcon />, "/rooms",],
+]
+
+const adminPageData = [
+  ...pageData,
+  ["Manage Users", <HomeIcon />, "/admin/users",],
+  ["Manage Contest", <HomeIcon />, "/admin/contests",],
+  ["Manage Submissions", <HomeIcon />, "/admin/viewsubmissions",],
+]
+
+const DrawerNav = ({ open, setOpen, navData }: { open: boolean; setOpen: React.Dispatch<React.SetStateAction<boolean>>; navData:  React.MutableRefObject<(string | JSX.Element)[][]>; }) => {
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const linkIdx = navData.current.findIndex((path) => location.pathname == path[2]);
+  
+  return (
+    <Drawer open={open} transitionDuration={1000} onClose={() => { setOpen(false); }}>
+      <motion.div
+        initial={{ x: '-110%' }}
+        animate={
+          { x: 0 }
+        }
+        transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
+      >
+        <Box sx={{ width: "100vh", }} role="presentation">
+          <List>
+            <ListItem>
+              <CloseIcon style={{ fontSize: "2em" }} onClick={() => { setOpen(false); }} />
+            </ListItem>
+            <ListItem>
+
+              <div className="__name-logo" style={{color: "black"}}>Coding Club</div>
+
+            </ListItem>
+            <Divider />
+            {navData.current.map((page, index) => (
+
+              <ListItem key={page[0] as string} disablePadding sx={{ backgroundColor: linkIdx == index ? "black" : "", color: linkIdx == index ? "white" : "" }}>
+                <ListItemButton onClick={() => { setOpen(false); navigate(page[2] as string) }} >
+                  <ListItemIcon sx={{ color: linkIdx == index ? "white" : "" }}>
+                    {page[1] as string}
+                  </ListItemIcon>
+                  {/* {page[0]} */}
+                  <ListItemText primary={page[0] as string} sx={{ fontSize: "5em" }} />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+
+        </Box>
+      </motion.div>
+    </Drawer>
+  )
+}
+
+const MenuButton = ({ setOpen }: { setOpen: React.Dispatch<React.SetStateAction<boolean>>; }) => {
+  return (
+    <div className={style.mbutton} >
+      <IconButton
+        aria-label="open drawer"
+        onClick={() => { setOpen(true) }}
+      >
+        <MenuIcon sx={{ color: "var(--text-color)" }} />
+      </IconButton>
+    </div>
+  )
+}
 
 function UserDisplay({ user, logOut }: { user: string, logOut:()=>void }) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -110,18 +186,17 @@ const NavBox = styled(Box)(({ theme }) => ({
 }));
 
 const Navbar = () => {
-  const pages = ["Problems", "Contests", "Room"];
-  const move = ["/", "/contests", "/rooms"] as string[];
   const navigate = useNavigate();
   const location = useLocation();
-  const { user, logOut } = useAuth() || { user: undefined };
-  const linkIdx = move.findIndex((path) => location.pathname == path)
+  const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
+  const { user, logOut, userObj } = useAuth() || { user: undefined };
+  const navData = useRef(userObj?.role === "admin"? adminPageData: pageData) 
+  const linkIdx = navData.current.findIndex((path) => location.pathname == path[2])
 
   return (
     <NavBox>
     <nav className={""} style={{}}>
-      
-      {user ? <UserDisplay user={user} logOut={logOut} /> : location.pathname == '/login' ? <></> :<Link to="/login">Login</Link>}
+    <MenuButton setOpen={setDrawerOpen} />
       <div
         style={{
           fontFamily: "cursive",
@@ -129,15 +204,15 @@ const Navbar = () => {
           fontWeight: "bold",
         }}
       >
-        Coding Arena
+        CodingArena
       </div>
       {/* <Logo /> */}
       {/* <img src={Logo} width={100}/> */}
       {linkIdx != -1 ? (
         <div className={style.nav}>
         
-          {pages.map((page, index) => (
-            (index == linkIdx) ?<NavButtonActive>{page}</NavButtonActive>:<NavButton onClick={() => navigate(move[index])}>{page}</NavButton>
+          {navData.current.map((page, index) => (
+            (index == linkIdx) ?<NavButtonActive>{page[0]}</NavButtonActive>:<NavButton onClick={() => navigate(page[2] as string)}>{page[0]}</NavButton>
             // <a href={move[index]} >{page}</a>
             // <div
             //   style={{ position: "relative" }}
@@ -159,10 +234,15 @@ const Navbar = () => {
             //   ></div>
             // </div>
           ))}
+          
+          <DrawerNav open={drawerOpen} setOpen={setDrawerOpen} navData={navData} />
+    
         </div>
       ) : (
         <></>
       )}
+      {user ? <UserDisplay user={user} logOut={logOut} /> : location.pathname == '/login' ? <></> :<Link to="/login">Login</Link>}
+      
     </nav>
     </NavBox>
   );

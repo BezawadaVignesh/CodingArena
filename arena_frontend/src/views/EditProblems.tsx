@@ -26,6 +26,7 @@ import {
 } from "@mui/material";
 import { TransitionProps } from "@mui/material/transitions";
 import Axios from "axios";
+import { ChevronRight } from "lucide-react";
 import React, {
   ChangeEvent,
   FormEvent,
@@ -50,12 +51,14 @@ const Transition = React.forwardRef(function Transition(
 
 function ProblemHelper({
   contestId,
+  constestName,
   reload,
   setReload,
   initButton,
   problemId,
 }: {
   contestId: number;
+  constestName: string;
   problemId?: number | null;
   reload: boolean;
   initButton: React.ReactNode;
@@ -139,14 +142,18 @@ function ProblemHelper({
         {initButton}
       </div>
       <Dialog
-        fullScreen={fullScreen}
+        fullScreen
         open={open}
         TransitionComponent={Transition}
         onClose={handleClose}
         // aria-labelledby="responsive-dialog-title"
         // style={{maxWidth:'800px'}}
       >
-        <DialogTitle id="responsive-dialog-title">{"Add Problem"}</DialogTitle>
+        <DialogTitle id="responsive-dialog-title" sx={{display: 'flex', alignItems: "center"}}>
+          <div> {constestName} </div> 
+            <ChevronRight style={{marginInline: '10px'}}/>
+          <div> {problemId ? title : "Add Problem"} </div>
+        </DialogTitle>
         <div>
           <DialogContent sx={{ padding: "15px", paddingRight: "10px" }}>
             <TextField
@@ -177,7 +184,7 @@ function ProblemHelper({
               fullWidth
               sx={{ marginBlock: "10px" }}
               inputProps={{ maxLength: 256 }}
-              helperText={`${input.length}/256`}
+              helperText={`${input?input.length:0}/256`}
               multiline
             />
             <TextField
@@ -187,7 +194,7 @@ function ProblemHelper({
               onChange={(e) => setOutput(e.target.value)}
               fullWidth
               inputProps={{ maxLength: 256 }}
-              helperText={`${output.length}/256`}
+              helperText={`${output?output.length:0}/256`}
               multiline
             />
           </DialogContent>
@@ -520,11 +527,15 @@ const EditProblems = () => {
                       {
                         <ProblemHelper
                           contestId={contestId}
+                          constestName={contestTitle}
                           initButton={
                             <Button
                               size="small"
                               color="info"
                               variant="contained"
+                              onClick={() => {
+                                alert?.showAlert("Click 'Esc or Cancle' to exit edit mode", "info")
+                              }}
                             >
                               Edit
                             </Button>
@@ -631,6 +642,7 @@ const EditProblems = () => {
           <div style={{ marginLeft: "auto", marginRight: 0, width: 100 }}>
             <ProblemHelper
               contestId={contestId}
+              constestName={contestTitle}
               initButton={
                 <Button
                   sx={{ margin: "auto", width: 90 }}

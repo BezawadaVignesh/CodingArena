@@ -28,10 +28,18 @@ class ProblemIO extends Model {
   declare output: string;
 }
 
+export enum ProblemDifficulty {
+  EASY = 'Easy',
+  MEDIUM = 'Medium',
+  HARD = 'Hard'
+}
+
 class Problem extends Model {
   declare id: number;
   declare title: string;
   declare q: string;
+  declare difficulty: 'Easy' | 'Medium' | 'Hard';
+  declare tags: string;
   declare maxscore: number;
   declare problemio?: NonAttribute<ProblemIO[]>;
   declare input: string;
@@ -120,7 +128,14 @@ Problem.init(
       autoIncrement: true,
       primaryKey: true,
     },
-
+     difficulty: { 
+      type: DataTypes.ENUM(...Object.values(ProblemDifficulty)),
+      allowNull: false,
+    },
+    tags: {
+      type: new DataTypes.STRING,
+      allowNull: false,
+    },
     title: {
       type: new DataTypes.STRING(128),
       allowNull: false,

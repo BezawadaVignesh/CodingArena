@@ -12,7 +12,7 @@ import {
   ListItemText,
   styled
 } from "@mui/material";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import style from "./Navbar.module.css";
 
@@ -154,7 +154,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import LeaderboardIcon from '@mui/icons-material/Leaderboard';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 
-const pageData = [
+const homePageData = [
   ["Home", <HomeIcon />, "/home",],
   ["Events", <EventIcon />, "/home/Events",],
   ["Announcements", <NotificationsIcon />, "/home/announcements",],
@@ -164,6 +164,12 @@ const pageData = [
   ["Gallery", <CollectionsIcon />, "/home/gallery",],
   ["Contact Us", <ContactMailIcon />, "/home/contact-us",]
 ];
+
+const arenaPageData = [
+  ["Problems", <HomeIcon />, "/",],
+  ["Contests", <HomeIcon />, "/contests",],
+  ["Room", <HomeIcon />, "/rooms",],
+]
 
 
 const MenuButton = ({ setOpen }: { setOpen: React.Dispatch<React.SetStateAction<boolean>>; }) => {
@@ -183,7 +189,8 @@ const DrawerNav = ({ open, setOpen }: { open: boolean; setOpen: React.Dispatch<R
 
   const navigate = useNavigate();
   const location = useLocation();
-  const linkIdx = pageData.findIndex((path) => location.pathname == path[2]);
+  const pageData = useRef(location.pathname.startsWith("/home")?homePageData:arenaPageData);
+  const linkIdx = pageData.current.findIndex((path) => location.pathname == path[2]);
   
   return (
     <Drawer open={open} transitionDuration={1000} onClose={() => { setOpen(false); }}>
@@ -205,7 +212,7 @@ const DrawerNav = ({ open, setOpen }: { open: boolean; setOpen: React.Dispatch<R
 
             </ListItem>
             <Divider />
-            {pageData.map((page, index) => (
+            {pageData.current.map((page, index) => (
 
               <ListItem key={page[0] as string} disablePadding sx={{ backgroundColor: linkIdx == index ? "black" : "", color: linkIdx == index ? "white" : "" }}>
                 <ListItemButton onClick={() => { setOpen(false); navigate(page[2] as string) }} >
@@ -231,7 +238,8 @@ const Navbar :React.FC<Time>= ({time=2.5}) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
-  const linkIdx = pageData.findIndex((path) => location.pathname == path[2]);
+  const pageData = useRef(location.pathname.startsWith("/home")?homePageData:arenaPageData);
+  const linkIdx = pageData.current.findIndex((path) => location.pathname == path[2]);
   return (
     <div>
       <NavBox>
@@ -251,7 +259,7 @@ const Navbar :React.FC<Time>= ({time=2.5}) => {
           <div className="__name-logo">Coding Club</div>
           {
             <div className={"__nav-buttons " + style.nav} >
-              {pageData.map((page, index) => (
+              {pageData.current.map((page, index) => (
                 (index == linkIdx) ? <NavButtonActive key={page[0] as string} >{page[0]}</NavButtonActive> :
                   <NavButton key={page[0] as string} onClick={() => navigate(page[2] as string)}>{page[0]}</NavButton>
               ))}
