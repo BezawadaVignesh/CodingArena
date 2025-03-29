@@ -88,3 +88,7 @@ export const _delete = async (id: number) => {
     await problem.destroy();
 }
 
+export const _deleteIO = async (id: number) => {
+    const p = (await ProblemIO.findByPk(id))!;
+    await p.destroy();
+}

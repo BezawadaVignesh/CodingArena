@@ -81,18 +81,32 @@ const Home = () => {
   const alert = useContext(AlertContext);
   const [notAttempted, setNotAttempted] = useState(false);
   const [showAttempted, setShowAttempted] = useState(false);
+  const [difficulty, setDifficulty] = useState("All");
+  const [tags, setTags] = useState<any>(null);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   const [search, setSearch] = useState("");
   const problems = useRef([]);
 
   useEffect(() => {
-    if(!search) setQs(problems.current);
-    else
-      setQs(problems.current.filter(({title}:{title: string;}) => {
+    let finalResult: any = problems.current;
+    if(search) {
+      finalResult = problems.current.filter(({title}:{title: string;}) => {
         return title.toLowerCase().includes(search.toLowerCase());
-      }))
-  }, [search]);
+      })
+    }
+    if(difficulty && difficulty != "All") {
+      finalResult = finalResult.filter((obj:any) => {
+        return obj.difficulty === difficulty
+      })
+    }
+    if(tags) {
+      finalResult = finalResult.filter((obj:any) => {
+        return obj.tags.toLowerCase().includes(tags.toLowerCase());
+      })
+    }
+    setQs(finalResult)
+  }, [search, difficulty, tags]);
 
   useEffect(() => {
     (async () => {
@@ -116,7 +130,7 @@ const Home = () => {
     <>
       <Navbar />
 
-      <Box display={"flex"} flexWrap={"wrap-reverse"}>
+      <Box display={"flex"} flexWrap={"wrap-reverse"} sx={{paddingBlock: '25px 100px'}}>
         <div style={{ width: "max(60%, 250px)", margin: "auto" }}>
           <div
             style={{
@@ -177,10 +191,11 @@ const Home = () => {
                     sx={{ width: "100%" }}
                     labelId="Difficulty-select-label"
                     id="Difficulty-select"
-                    
                     label="Difficulty"
-                    // variant="outlined"
-                    // onChange={(e) => setSearch(e.target.value)}
+                    value={difficulty}
+                    onChange={(e) => {
+                      setDifficulty(e.target.value)
+                    }}
                     size="small"
                   >
                     <MenuItem value={"All"} defaultChecked>
@@ -195,6 +210,11 @@ const Home = () => {
               <TextField
                 size="small"
                 label="Search by Tags"
+                value={tags}
+                onChange={(e: any) => {
+                  console.log(e.target.value)
+                  setTags(e.target.value)
+                }}
                 sx={{
                   width: "max(45%, 250px)",
                   "&:hover": {

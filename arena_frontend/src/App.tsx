@@ -28,6 +28,7 @@ import AdminRoute from "./components/Auth/AdminRouts";
 import LoadingScreen from "./components/common/LoadingScreen";
 import NotFound from "./components/common/NotFound";
 import AdminCodeRunner from "./views/AdminCodeRunner";
+import Contest from "./views/Contest";
 import routes from "./views/MainHome/Router";
 import Room from "./views/Rooms/Room";
 import RoomContests from "./views/Rooms/RoomContests";
@@ -155,6 +156,10 @@ const router = createBrowserRouter([
                 element: <EditUsersPage />,
               },
               {
+                path: "/admin/contest/:id",
+                element: <Contest />,
+              },
+              {
                 path: "/admin/problems/:id",
                 element: <EditProblems />,
               },
@@ -227,6 +232,13 @@ const lightTheme = createTheme({
         },
       },
     },
+    MuiAccordion: {
+      styleOverrides: {
+        root: {
+          boxShadow: "rgba(0, 0, 0, 0.2) 0px 4px 8px 0px, rgba(0, 0, 0, 0.19) 0px 6px 20px 0px",
+        }     
+      }
+    }
   },
 });
 
@@ -286,6 +298,14 @@ const darkTheme = createTheme({
         },
       },
     },
+    MuiAccordion: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#333333',
+
+        }
+      }
+    }
   },
 });
 

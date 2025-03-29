@@ -131,9 +131,11 @@ Problem.init(
      difficulty: { 
       type: DataTypes.ENUM(...Object.values(ProblemDifficulty)),
       allowNull: false,
+      defaultValue: ProblemDifficulty.EASY,
     },
     tags: {
       type: new DataTypes.STRING,
+      defaultValue: "",
       allowNull: false,
     },
     title: {

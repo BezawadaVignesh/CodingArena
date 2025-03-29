@@ -453,3 +453,34 @@ router.get('/io/:id', async (req: Request, res: Response, next: NextFunction) =>
 })
 
 export default router;
+
+router.post('/statercode', async (req: any, res: Response, next: NextFunction) => {
+    try {
+        if(req.body.languages == undefined || req.body.scode == undefined, req.body.problemId == undefined) throw 'NAPG'
+        const problemId = parseInt(req.body.problemId as string)
+        console.log(req.body)
+        const p = await Problem.findByPk(problemId);
+        console.log(p)
+        const staterExist = await (p)?.getStaterCode();
+        if(staterExist){
+            staterExist.languages = JSON.stringify(req.body.languages);
+            staterExist.scode = JSON.stringify(req.body.scode);
+            await staterExist.save();
+        }else{
+            await p?.createStaterCode({scode: JSON.stringify(req.body.scode), languages: JSON.stringify(req.body.languages), ProblemId: problemId})
+        }
+        res.status(201).json({message: 'Created successfull'})
+    }catch (error) {
+        console.log(error)
+        next(error)
+    }
+})
+
+router.delete('/IO/:id', allowAdmin(), async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        await problemService._deleteIO(parseInt(req.params.id));
+        res.json({ message: 'ProblemIO deleted successfully' });
+    } catch (error) {
+        next(error);
+    }
+})

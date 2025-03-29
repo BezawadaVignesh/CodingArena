@@ -13,7 +13,7 @@ import {
   TextField,
   Typography,
   useMediaQuery,
-  useTheme
+  useTheme,
 } from "@mui/material";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
@@ -65,7 +65,7 @@ const ContestHelper = ({ handleClose }: { handleClose: () => void }) => {
             label="Title"
             fullWidth
             inputProps={{ maxLength: 128 }}
-            helperText={`${title?title.length:0}/128`}
+            helperText={`${title ? title.length : 0}/128`}
           ></TextField>
           <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
             <InputLabel id="State-selection-lable">State</InputLabel>
@@ -224,70 +224,115 @@ const EditContests = () => {
   return (
     <div>
       <Navbar />
-      <div style={{width:'max-content', marginInline:'auto', marginTop:'20px'}}><Typography  sx={{fontWeight:500, fontSize: '25px'}} gutterBottom >Edit Contest</Typography></div>
+      <div
+        style={{
+          width: "max-content",
+          marginInline: "auto",
+          marginTop: "20px",
+        }}
+      >
+        <Typography sx={{ fontWeight: 500, fontSize: "25px" }} gutterBottom>
+          Edit Contest
+        </Typography>
+      </div>
       <Box
         display={"flex"}
         // alignItems="center"/
       >
-        <div style={{ width: "80%", margin: 'auto' }}>
-        {userObj?.role == "admin" || true ? (
-          <div style={{ marginLeft: "auto", marginRight: 0, width: 100, marginBlock: '10px' }}>
-            <CreateContest reload={reload} setReload={setReload} />
-          </div>
-        ) : (
-          <></>
-        )}
-          <Card
-          sx={{boxShadow: 7,}}
-          >
-          <DataGrid
-                    getRowId={(row: any) => row.id}
-                    columns={[
-                      { field: "title", headerName: "Contest name", flex: 1 },
-                      { field: "state", headerName: "State", flex: 1 },
-                      { field: "startTime", headerName: "Start Time", flex: 1, },
-                      { field: "endTime", headerName: "End Time", flex: 1, 
-                        renderCell: (params) => {
-                          if(!params.row.state?.startsWith("manual")) {
-                            return params.row.endTime;
-                          } else {
-                            return "-"
+        <div style={{ width: "80%", margin: "auto" }}>
+          {userObj?.role == "admin" || true ? (
+            <div
+              style={{
+                marginLeft: "auto",
+                marginRight: 0,
+                width: 100,
+                marginBlock: "10px",
+              }}
+            >
+              <CreateContest reload={reload} setReload={setReload} />
+            </div>
+          ) : (
+            <></>
+          )}
+          <Card sx={{ boxShadow: 7 }}>
+            <DataGrid
+              getRowId={(row: any) => row.id}
+              columns={[
+                { field: "title", headerName: "Contest name", minWidth: 150 },
+                { field: "state", headerName: "State", minWidth: 150 },
+                {
+                  field: "startTime",
+                  headerName: "Start Time",
+                  minWidth: 150,
+                  width: 250,
+                  valueGetter: (value) => {
+                    return dayjs(value).format("DD/MM/YYYY hh:mm:ss A");
+                  },
+                },
+                {
+                  field: "endTime",
+                  headerName: "End Time",
+                  minWidth: 150,
+                  width: 250,
+                  renderCell: (params) => {
+                    if (!params.row.state?.startsWith("manual")) {
+                      return dayjs(params.row.endTime).format(
+                        "DD/MM/YYYY hh:mm:ss A"
+                      );
+                    } else {
+                      return "-";
+                    }
+                  },
+                },
+                {
+                  field: "id",
+                  headerName: "Actions",
+                  minWidth: 200,
+                  renderCell: (parms) => {
+                    return (
+                      <div style={{ minWidth: "200px" }}>
+                        <CartoonButton
+                          customStyles={{
+                            padding: "9px 12px",
+                            width: "min(80px)",
+                          }}
+                          onClick={() =>
+                            navigate(`/admin/problems/${parms.row.id}`)
                           }
-                        } 
-                      },
-                      {field: "id", headerName: "Actions", flex: 1,
-                        renderCell: (parms) => {
-                          return <div style={{minWidth: '200px'}}>
-                          <CartoonButton
-                          customStyles={{padding: '9px 12px', width: 'min(80px)'}}
-                            onClick={() => navigate(`/admin/problems/${parms.row.id}`)}
-                            variant="primary"
-                          >
-                            Edit
-                          </CartoonButton>
-                          <CartoonButton
-                            customStyles={{ marginInline: 2, padding: '9px 12px', width: 'min(80px)' }}
-                            variant="danger"
-                            onClick={() => {
-                              alert?.showAlert("Can't delete current contest (ask dev's)", "error")
-                            }}
-                          >
-                            Delete
-                          </CartoonButton>
-                        </div>
-                        }
-                       },
-                      
-                    ]}
-                    initialState={{ pagination: { paginationModel: { pageSize: 5 } } }}
-                    rows={qs}
-                    disableRowSelectionOnClick
-                    pageSizeOptions={qs.length == 0 ? [0] : [5, 10, 15]}
-                    autoHeight
-                    
-                  />
-
-                  </Card>
+                          variant="primary"
+                        >
+                          Edit
+                        </CartoonButton>
+                        <CartoonButton
+                          customStyles={{
+                            marginInline: 2,
+                            padding: "9px 12px",
+                            width: "min(80px)",
+                          }}
+                          variant="danger"
+                          onClick={() => {
+                            alert?.showAlert(
+                              "Can't delete current contest (ask dev's)",
+                              "error"
+                            );
+                          }}
+                        >
+                          Delete
+                        </CartoonButton>
+                      </div>
+                    );
+                  },
+                },
+              ]}
+              initialState={{
+                pagination: { paginationModel: { pageSize: 5 } },
+              }}
+              rows={qs}
+              disableRowSelectionOnClick
+              pageSizeOptions={qs.length == 0 ? [0] : [5, 10, 15]}
+              autoHeight
+            />
+          </Card>
           {/* {
             qs.map(
               ({ title, id }: { title: string; id: number }, index: number) => (
@@ -342,9 +387,7 @@ const EditContests = () => {
         </div>
       </Box>
 
-      <div style={{ margin: "auto", width: "80%" }}>
-        
-      </div>
+      <div style={{ margin: "auto", width: "80%" }}></div>
     </div>
   );
 };
